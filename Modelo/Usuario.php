@@ -1,19 +1,43 @@
 <?php
-require_once '../Modelo/class.bd.php';
+require_once('../Modelo/Usuario.php');
 
-class Amigo {
+class Usuario {
     public $id;
     public $nombre;
-    public $apellidos;
-    public $fecha_nac;
-    public $usuario;
+    public $contrasena;
+    public $tipo;
 
-    public function guardar() {
+    public static function autenticar($nombre, $contrasena) {
         $db = new db();
         $conn = $db->getConn();
         
-        $stmt = $conn->prepare("INSERT INTO amigos (nombre, apellidos, fecha_nac, usuario) VALUES (?, ?, ?, ?)");
-        $stmt->bind_param("sssi", $this->nombre, $this->apellidos, $this->fecha_nac, $this->usuario);
+        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE nombre = ? AND contrasena = ?");
+        $stmt->bind_param("ss", $nombre, $contrasena);
+        $stmt->execute();
+        
+        $resultado = $stmt->get_result();
+        $usuario = null;
+        
+        if ($fila = $resultado->fetch_object()) {
+            $usuario = new Usuario();
+            $usuario->id = $fila->id;
+            $usuario->nombre = $fila->nombre;
+            $usuario->contrasena = $fila->contrasena;
+            $usuario->tipo = $fila->tipo;
+        }
+        
+        $stmt->close();
+        $conn->close();
+        
+        return $usuario;
+    }
+
+    public function registrar() {
+        $db = new db();
+        $conn = $db->getConn();
+        
+        $stmt = $conn->prepare("INSERT INTO usuarios (nombre, contrasena, tipo) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $this->nombre, $this->contrasena, $this->tipo);
         
         $resultado = $stmt->execute();
         $this->id = $conn->insert_id;
@@ -24,12 +48,50 @@ class Amigo {
         return $resultado;
     }
 
+    public static function existeNombre($nombre) {
+        $db = new db();
+        $conn = $db->getConn();
+        
+        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM usuarios WHERE nombre = ?");
+        $stmt->bind_param("s", $nombre);
+        $stmt->execute();
+        
+        $resultado = $stmt->get_result();
+        $fila = $resultado->fetch_assoc();
+        
+        $stmt->close();
+        $conn->close();
+        
+        return $fila['count'] > 0;
+    }
+
+    public static function listarUsuarios() {
+        $db = new db();
+        $conn = $db->getConn();
+        
+        $query = "SELECT id, nombre, tipo FROM usuarios";
+        $resultado = $conn->query($query);
+        
+        $usuarios = [];
+        while ($fila = $resultado->fetch_object()) {
+            $usuario = new Usuario();
+            $usuario->id = $fila->id;
+            $usuario->nombre = $fila->nombre;
+            $usuario->tipo = $fila->tipo;
+            $usuarios[] = $usuario;
+        }
+        
+        $conn->close();
+        
+        return $usuarios;
+    }
+
     public function actualizar() {
         $db = new db();
         $conn = $db->getConn();
         
-        $stmt = $conn->prepare("UPDATE amigos SET nombre = ?, apellidos = ?, fecha_nac = ? WHERE id = ? AND usuario = ?");
-        $stmt->bind_param("sssii", $this->nombre, $this->apellidos, $this->fecha_nac, $this->id, $this->usuario);
+        $stmt = $conn->prepare("UPDATE usuarios SET nombre = ?, contrasena = ?, tipo = ? WHERE id = ?");
+        $stmt->bind_param("sssi", $this->nombre, $this->contrasena, $this->tipo, $this->id);
         
         $resultado = $stmt->execute();
         
@@ -43,8 +105,8 @@ class Amigo {
         $db = new db();
         $conn = $db->getConn();
         
-        $stmt = $conn->prepare("DELETE FROM amigos WHERE id = ? AND usuario = ?");
-        $stmt->bind_param("ii", $this->id, $this->usuario);
+        $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ?");
+        $stmt->bind_param("i", $this->id);
         
         $resultado = $stmt->execute();
         
@@ -54,70 +116,29 @@ class Amigo {
         return $resultado;
     }
 
-    public static function buscarPorId($id, $usuario) {
+    public static function buscarPorId($id) {
         $db = new db();
         $conn = $db->getConn();
         
-        $stmt = $conn->prepare("SELECT * FROM amigos WHERE id = ? AND usuario = ?");
-        $stmt->bind_param("ii", $id, $usuario);
+        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt->bind_param("i", $id);
         $stmt->execute();
         
         $resultado = $stmt->get_result();
-        $amigo = null;
+        $usuario = null;
         
         if ($fila = $resultado->fetch_object()) {
-            $amigo = new Amigo();
-            $amigo->id = $fila->id;
-            $amigo->nombre = $fila->nombre;
-            $amigo->apellidos = $fila->apellidos;
-            $amigo->fecha_nac = $fila->fecha_nac;
-            $amigo->usuario = $fila->usuario;
+            $usuario = new Usuario();
+            $usuario->id = $fila->id;
+            $usuario->nombre = $fila->nombre;
+            $usuario->contrasena = $fila->contrasena;
+            $usuario->tipo = $fila->tipo;
         }
         
         $stmt->close();
         $conn->close();
         
-        return $amigo;
-    }
-
-    public static function listarPorUsuario($usuario, $busqueda = '') {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $query = "SELECT * FROM amigos WHERE usuario = ?";
-        $parametros = [$usuario];
-        
-        if (!empty($busqueda)) {
-            $query .= " AND (nombre LIKE ? OR apellidos LIKE ?)";
-            $busquedaParam = "%$busqueda%";
-            $parametros[] = $busquedaParam;
-            $parametros[] = $busquedaParam;
-        }
-        
-        $stmt = $conn->prepare($query);
-        
-        // Bind dinámico de parámetros
-        $tipos = str_repeat('s', count($parametros));
-        $stmt->bind_param($tipos, ...$parametros);
-        
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-        
-        $amigos = [];
-        while ($fila = $resultado->fetch_object()) {
-            $amigo = new Amigo();
-            $amigo->id = $fila->id;
-            $amigo->nombre = $fila->nombre;
-            $amigo->apellidos = $fila->apellidos;
-            $amigo->fecha_nac = $fila->fecha_nac;
-            $amigo->usuario = $fila->usuario;
-            $amigos[] = $amigo;
-        }
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $amigos;
+        return $usuario;
     }
 }
 ?>
