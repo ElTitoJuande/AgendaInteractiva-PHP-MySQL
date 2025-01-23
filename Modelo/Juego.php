@@ -1,5 +1,5 @@
 <?php
-require_once '../Modelo/class.bd.php';
+require_once '../Modelo/class.db.php';
 
 class Juego {
     public $id;

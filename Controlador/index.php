@@ -1,27 +1,59 @@
 <?php
 // Cargar los modelos
-require_once '../modelos/Amigo.php';
-require_once '../modelos/Juego.php';
-require_once '../modelos/Prestamo.php';
-require_once '../modelos/Usuario.php';
+require_once '../Modelo/Amigo.php';
+require_once '../Modelo/Juego.php';
+require_once '../Modelo/Prestamo.php';
+require_once '../Modelo/Usuario.php';
 
-// Definir la acción a realizar
-$accion = $_GET['accion'] ?? 'inicio';
+function login() {
+  
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+        $nombre = $_POST['nombre'];
+        $contrasena = $_POST['contrasena'];
 
-switch ($accion) {
-    case 'listarAmigos':
-        // Lógica para listar amigos
-        include '../vistas/amigos/index.php';
-        break;
-    case 'insertarAmigo':
-        // Lógica para insertar un amigo
-        include '../vistas/amigos/insertar.php';
-        break;
-    // Agregar más casos para las diferentes acciones
-    default:
-        include '../vistas/layouts/header.php';
-        echo "Bienvenido a la aplicación";
-        include '../vistas/layouts/footer.php';
-        break;
+        $usuario = new Usuario();
+        
+        if ($usuario->autenticarUsuario($nombre, $contrasena)) {
+            session_start();
+            $_SESSION['usuario_id'] = $usuario->$usuario->autenticarUsuario($nombre, $contrasena);
+            // $_SESSION['usuario_tipo'] = $usuario->tipo;
+            
+            header('Location: index.php?action=dashboard');
+            exit();
+        } else {
+            $error = 'Credenciales incorrectas';
+        }
+    }else{var_dump($_POST);
+  die();
+        require_once ("../Vista/login.php");
+    }
 }
+function dashboard() {
+    session_start();
+
+
+    // var_dump($_SESSION['usuario_id']);
+    // die();
+
+    if (!isset($_SESSION['usuario_id'])) {
+        header('Location: login.php');
+        exit();
+    }
+    
+    $tabla = new Amigo();
+    $amigos = $tabla->listarPorUsuario($_SESSION['usuario_id']);
+
+    require_once '../Vista/listaAmigos.php';
+
+}
+
+if (isset($_REQUEST['action'])) {
+    $action = strtolower( $_REQUEST['action']); 
+    $action();
+
+}else{
+    login();
+}
+
 ?>

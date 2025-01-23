@@ -3,13 +3,7 @@ session_start();
 require_once('../modelos/Amigo.php');
 
 // Verificar sesión
-if (!isset($_SESSION['usuario_id'])) {
-    header('Location: login.php');
-    exit();
-}
 
-$busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
-$amigos = Amigo::listarPorUsuario($_SESSION['usuario_id'], $busqueda);
 ?>
 
 <!DOCTYPE html>
@@ -42,9 +36,9 @@ $amigos = Amigo::listarPorUsuario($_SESSION['usuario_id'], $busqueda);
             <tbody>
                 <?php foreach($amigos as $amigo): ?>
                 <tr>
-                    <td><?= htmlspecialchars($amigo->nombre) ?></td>
-                    <td><?= htmlspecialchars($amigo->apellidos) ?></td>
-                    <td><?= htmlspecialchars($amigo->fecha_nac) ?></td>
+                    <td><?= $amigo[0] ?></td>
+                    <td><?= $amigo[1] ?></td>
+                    <td><?= $amigo[2] ?></td>
                     <td>
                         <a href="editar_amigo.php?id=<?= $amigo->id ?>">Editar</a>
                         <a href="eliminar_amigo.php?id=<?= $amigo->id ?>" onclick="return confirm('¿Estás seguro?')">Eliminar</a>

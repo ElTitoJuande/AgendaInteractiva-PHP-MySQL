@@ -1,38 +1,44 @@
 <?php
-require_once('../Modelo/Usuario.php');
+require_once('../Modelo/class.db.php');
 
 class Usuario {
+    private $conn;
     public $id;
     public $nombre;
     public $contrasena;
     public $tipo;
 
-    public static function autenticar($nombre, $contrasena) {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE nombre = ? AND contrasena = ?");
+    public function __construct() {
+        $this->conn = new db();
+        $this->id;
+        $this->nombre;
+        $this->contrasena;
+        $this->tipo;
+    }
+
+    public function autenticarUsuario($nombre, $contrasena) {
+               
+        $stmt = $this->conn->getConn()->prepare("SELECT id FROM usuarios WHERE nombre = ? AND contrasena = ?");
         $stmt->bind_param("ss", $nombre, $contrasena);
         $stmt->execute();
         
-        $resultado = $stmt->get_result();
-        $usuario = null;
+        $stmt->bind_result($usuario_id);
+        // $usuario = null;
         
-        if ($fila = $resultado->fetch_object()) {
-            $usuario = new Usuario();
-            $usuario->id = $fila->id;
-            $usuario->nombre = $fila->nombre;
-            $usuario->contrasena = $fila->contrasena;
-            $usuario->tipo = $fila->tipo;
-        }
+        // if ($fila = $resultado->fetch_object()) {
+        //     $usuario = new Usuario();
+        //     $usuario->id = $fila->id;
+        //     $usuario->nombre = $fila->nombre;
+        //     $usuario->contrasena = $fila->contrasena;
+        //     $usuario->tipo = $fila->tipo;
+        // }
         
         $stmt->close();
-        $conn->close();
         
-        return $usuario;
+        return $usuario_id;
     }
 
-    public function registrar() {
+    public function registrarUsuario() {
         $db = new db();
         $conn = $db->getConn();
         
@@ -86,7 +92,7 @@ class Usuario {
         return $usuarios;
     }
 
-    public function actualizar() {
+    public function actualizarUsuario() {
         $db = new db();
         $conn = $db->getConn();
         
@@ -101,7 +107,7 @@ class Usuario {
         return $resultado;
     }
 
-    public function eliminar() {
+    public function eliminarUsuario() {
         $db = new db();
         $conn = $db->getConn();
         

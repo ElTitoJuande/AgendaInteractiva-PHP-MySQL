@@ -1,5 +1,5 @@
 <?php
-require_once('db.php');
+require_once('../Modelo/class.db.php');
 
 class Prestamo {
     public $id;
@@ -8,6 +8,16 @@ class Prestamo {
     public $juego;
     public $fecha_prestamo;
     public $devuelto;
+
+    public function __construct() {
+        $this->conn=new db();
+        $this->id;
+        $this->usuario;
+        $this->amigo;
+        $this->juego;
+        $this->fecha_prestamo;
+        $this->devuelto;
+    }
 
     public function guardar() {
         $db = new db();
