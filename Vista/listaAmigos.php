@@ -1,8 +1,12 @@
 <?php
-session_start();
 require_once('../modelos/Amigo.php');
 
 // Verificar sesión
+session_start();
+if (!isset($_SESSION['usuario_id'])) {
+    header('Location: login.php');
+    exit();
+}
 
 ?>
 

@@ -50,7 +50,7 @@ class Prestamo {
         return $resultado;
     }
 
-    public static function buscarPorId($id, $usuario) {
+    public function buscarPorId($id, $usuario) {
         $db = new db();
         $conn = $db->getConn();
         
@@ -85,7 +85,7 @@ class Prestamo {
         return $prestamo;
     }
 
-    public static function listarPorUsuario($usuario, $busqueda = '', $mostrarSoloActivos = false) {
+    public function listarPorUsuario($usuario, $busqueda = '', $mostrarSoloActivos = false) {
         $db = new db();
         $conn = $db->getConn();
         

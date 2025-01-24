@@ -16,7 +16,8 @@ function login() {
         
         if ($usuario->autenticarUsuario($nombre, $contrasena)) {
             session_start();
-            $_SESSION['usuario_id'] = $usuario->$usuario->autenticarUsuario($nombre, $contrasena);
+            $_SESSION['usuario_id'] = $usuario->autenticarUsuario($nombre, $contrasena);
+
             // $_SESSION['usuario_tipo'] = $usuario->tipo;
             
             header('Location: index.php?action=dashboard');
@@ -24,11 +25,14 @@ function login() {
         } else {
             $error = 'Credenciales incorrectas';
         }
-    }else{var_dump($_POST);
-  die();
+    }else{
+        // var_dump($_POST);
+        // die();
+
         require_once ("../Vista/login.php");
     }
 }
+
 function dashboard() {
     session_start();
 

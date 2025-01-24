@@ -15,10 +15,8 @@
 
             
                 <label for="nombre">Usuario</label>
-                <input type="text" id="nombre" name="nombre" required>
-            
-
-            
+                <input type="text" id="nombre" name="nombre" value=<?php if(isset($_COOKIE["usuario"])) echo $_COOKIE["usuario"];?>>
+                <br>
                 <label for="contrasena">Contraseña</label>
                 <input type="password" id="contrasena" name="contrasena" required>
             

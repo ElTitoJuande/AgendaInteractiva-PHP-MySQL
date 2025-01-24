@@ -3,11 +3,11 @@ require_once('../Modelo/class.db.php');
 
 class Amigo {
     private $conn;
-    private $id;
-    private $nombre;
-    private $apellidos;
-    private $fecha_nac;
-    private $usuario;
+    public $id;
+    public $nombre;
+    public $apellidos;
+    public $fecha_nac;
+    public $usuario;
 
     public function __construct() {
         $this->conn = new db();
