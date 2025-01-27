@@ -32,8 +32,8 @@
                     <td><?= $amigo["apellidos"] ?></td>
                     <td><?= $amigo["fecha_nac"] ?></td>
                     <td> 
-                        <form action="" method="post">
-                            <input type="button" class="btn" value="Editar">
+                        <form action="../Vista/editarAmigo.php?id=<?= $amigo["id"] ?>" method="get">
+                            <input type="submit" class="btn" value="Editar">
                         </form>
                     </td>
                 </tr>

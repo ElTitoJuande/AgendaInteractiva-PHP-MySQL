@@ -41,24 +41,24 @@ class Amigo {
         return $stmt->execute();
     }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $nombre = $_POST['nombre'];
-        $apellidos = $_POST['apellidos'];
-        $fecha_nac = $_POST['fecha_nac'];
+    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    //     $nombre = $_POST['nombre'];
+    //     $apellidos = $_POST['apellidos'];
+    //     $fecha_nac = $_POST['fecha_nac'];
     
-        $amigo = new Amigo();
-        $amigo->nombre = $nombre;
-        $amigo->apellidos = $apellidos;
-        $amigo->fecha_nac = $fecha_nac;
-        $amigo->usuario = $_SESSION['usuario_id'];
+    //     $amigo = new Amigo();
+    //     $amigo->nombre = $nombre;
+    //     $amigo->apellidos = $apellidos;
+    //     $amigo->fecha_nac = $fecha_nac;
+    //     $amigo->usuario = $_SESSION['usuario_id'];
+    // }
     
-        if ($amigo->agregarAmigo()) {
-            header('Location: lista_amigos.php');
-            exit();
-        } else {
-            $error = 'Error al guardar el amigo';
-        }
-    }
+    //     if ($amigo->agregarAmigo()) {
+    //         header('Location: lista_amigos.php');
+    //         exit();
+    //     } else {
+    //         $error = 'Error al guardar el amigo';
+    //     }
 
 
     public function eliminarAmigo($id) {
