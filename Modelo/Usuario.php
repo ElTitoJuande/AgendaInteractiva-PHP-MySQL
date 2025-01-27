@@ -20,22 +20,18 @@ class Usuario {
                
         $stmt = $this->conn->getConn()->prepare("SELECT id FROM usuarios WHERE nombre = ? AND contrasena = ?");
         $stmt->bind_param("ss", $nombre, $contrasena);
-        $stmt->execute();
+        
         
         $stmt->bind_result($usuario_id);
-        // $usuario = null;
+        $stmt->execute();
         
-        // if ($fila = $resultado->fetch_object()) {
-        //     $usuario = new Usuario();
-        //     $usuario->id = $fila->id;
-        //     $usuario->nombre = $fila->nombre;
-        //     $usuario->contrasena = $fila->contrasena;
-        //     $usuario->tipo = $fila->tipo;
-        // }
+        $usuario = null;
+
+        if($stmt->fetch()) $usuario = $usuario_id;
         
         $stmt->close();
         
-        return $usuario_id;
+        return $usuario;
     }
 
     public function registrarUsuario() {

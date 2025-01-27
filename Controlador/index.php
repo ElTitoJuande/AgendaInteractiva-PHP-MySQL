@@ -7,36 +7,31 @@ require_once '../Modelo/Usuario.php';
 
 function login() {
   
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
         $nombre = $_POST['nombre'];
         $contrasena = $_POST['contrasena'];
 
         $usuario = new Usuario();
         
-        if ($usuario->autenticarUsuario($nombre, $contrasena)) {
+        if ($usuario->autenticarUsuario($nombre, $contrasena)!=null) {
             session_start();
             $_SESSION['usuario_id'] = $usuario->autenticarUsuario($nombre, $contrasena);
 
-            // $_SESSION['usuario_tipo'] = $usuario->tipo;
-            
-            header('Location: index.php?action=dashboard');
-            exit();
-        } else {
-            $error = 'Credenciales incorrectas';
+            dashboard();
+        }else{
+    
+            require_once ("../Vista/login.php");
         }
     }else{
-        // var_dump($_POST);
-        // die();
 
         require_once ("../Vista/login.php");
     }
 }
 
+
 function dashboard() {
-    session_start();
-
-
+    //session_start();
     // var_dump($_SESSION['usuario_id']);
     // die();
 
@@ -46,14 +41,13 @@ function dashboard() {
     }
     
     $tabla = new Amigo();
-    $amigos = $tabla->listarPorUsuario($_SESSION['usuario_id']);
+    $amigos = $tabla->obtenerAmigosPorUsuario($_SESSION['usuario_id']);
 
     require_once '../Vista/listaAmigos.php';
-
 }
 
 if (isset($_REQUEST['action'])) {
-    $action = strtolower( $_REQUEST['action']); 
+    $action = strtolower( $_REQUEST['action']);
     $action();
 
 }else{
