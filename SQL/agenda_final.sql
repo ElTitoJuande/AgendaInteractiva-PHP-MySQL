@@ -3,13 +3,14 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-01-2025 a las 12:35:50
+-- Tiempo de generación: 27-01-2025 a las 12:52:51
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,7 +42,10 @@ CREATE TABLE `amigos` (
 INSERT INTO `amigos` (`id`, `nombre`, `apellidos`, `fecha_nac`, `usuario`) VALUES
 (1, 'Angel', 'Lopez', '2001-05-31', 1),
 (2, 'Antonio', 'Roldan', '1999-01-14', 4),
-(3, 'Pablo', 'Saenz', '2002-11-16', 1);
+(3, 'Pablo', 'Saenz', '2002-11-16', 1),
+(4, 'Juanfran', 'Pacho', '2003-01-10', 2),
+(5, 'Ana', 'Maite', '2004-12-21', 2),
+(6, 'Alejandro', 'Aguayo', '2002-10-14', 2);
 
 -- --------------------------------------------------------
 
@@ -53,7 +57,7 @@ CREATE TABLE `juegos` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `titulo` varchar(100) NOT NULL,
   `plataforma` varchar(100) NOT NULL,
-  `lanzamiento` year NOT NULL,
+  `lanzamiento` year(4) NOT NULL,
   `img` varchar(250) NOT NULL,
   `usuario` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -63,9 +67,9 @@ CREATE TABLE `juegos` (
 --
 
 INSERT INTO `juegos` (`id`, `titulo`, `plataforma`, `lanzamiento`, `img`, `usuario`) VALUES
-(1, 'Fornite', 'PC', 2017, 'luego', 1),
-(2, 'MineCraft', 'PC', 2009, 'luego', 4),
-(3, 'EAFC25', 'PS4', 2025, 'luego', 1);
+(1, 'Fornite', 'PC', '2017', 'luego', 1),
+(2, 'Minecraft', 'PC', '2009', 'luego', 4),
+(3, 'EAFC25', 'PS4', '2024', 'luego', 1);
 
 -- --------------------------------------------------------
 
@@ -158,7 +162,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `amigos`
 --
 ALTER TABLE `amigos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `juegos`
@@ -201,7 +205,6 @@ ALTER TABLE `prestamos`
   ADD CONSTRAINT `fk_prestamo_amigos` FOREIGN KEY (`amigo`) REFERENCES `amigos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_prestamo_juegos` FOREIGN KEY (`juego`) REFERENCES `juegos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_prestamo_usuarios` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
