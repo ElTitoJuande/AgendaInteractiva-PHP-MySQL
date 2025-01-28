@@ -9,7 +9,7 @@
     <div class="container">
         <h1>Añadir Nuevo Amigo</h1>
 
-        <form method="post">
+        <form action="../Controlador/index.php?action=agregarAmigo" method="post">
             <div class="form-grupo">
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" required>

@@ -36,7 +36,7 @@ class Amigo {
 
     public function agregarAmigo($nombre, $apellidos, $fecha_nac, $usuario) {
         $sentencia = "INSERT INTO amigos (nombre, apellidos, fecha_nac, usuario) VALUES (?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($sentencia);
+        $stmt = $this->conn->getConn()->prepare($sentencia);
         $stmt->bind_param("sssi", $nombre, $apellidos, $fecha_nac, $usuario);
         return $stmt->execute();
     }

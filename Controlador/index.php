@@ -17,8 +17,7 @@ function login() {
         if ($usuario->autenticarUsuario($nombre, $contrasena)!=null) {
             session_start();
             $_SESSION['usuario_id'] = $usuario->autenticarUsuario($nombre, $contrasena);
-
-            dashboard();
+            header('Location: index.php?action=dashboard');
         }else{
     
             require_once ("../Vista/login.php");
@@ -29,25 +28,58 @@ function login() {
     }
 }
 
+function agregarAmigo() {
+    session_start();
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $fecha_nac = $_POST['fecha_nac'];
+    $usuario = $_SESSION['usuario_id'];
+
+    $amigo = new Amigo();
+
+    $amigos = $amigo->agregarAmigo($nombre, $apellidos, $fecha_nac, $usuario);
+
+    if ($amigos) {
+        echo "Amigo agregado correctamente.";
+        header('Location: index.php?action=dashboard');
+    } else {
+        echo "Error al agregar el amigo.";
+        require_once ("../Vista/nuevoAmigo.php");
+    }
+    // dashboard();
+}
+
 
 function dashboard() {
-    //session_start();
+    session_start();
     // var_dump($_SESSION['usuario_id']);
     // die();
 
     if (!isset($_SESSION['usuario_id'])) {
-        header('Location: login.php');
+        header("Location: index.php?action=login");
         exit();
     }
     
-    $tabla = new Amigo();
-    $amigos = $tabla->obtenerAmigosPorUsuario($_SESSION['usuario_id']);
+    $tipo = new Usuario();
 
-    require_once '../Vista/listaAmigos.php';
+    $_SESSION["tipo"] = $tipo->identificarTipo($_SESSION['usuario_id']);
+    var_dump($_SESSION["tipo"]);
+    die();
+    
+    if (strcmp($_SESSION["tipo"], "admin") == 0) {
+        require_once('../');
+    }else{
+        $tabla = new Amigo();
+        $amigos = $tabla->obtenerAmigosPorUsuario($_SESSION['usuario_id']);
+    
+        require_once '../Vista/listaAmigos.php';    
+    }
 }
 
 if (isset($_REQUEST['action'])) {
     $action = strtolower( $_REQUEST['action']);
+    // var_dump($action);
+    // die();
     $action();
 
 }else{

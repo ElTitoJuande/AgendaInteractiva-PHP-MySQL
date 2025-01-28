@@ -19,21 +19,31 @@ class Usuario {
     public function autenticarUsuario($nombre, $contrasena) {
                
         $stmt = $this->conn->getConn()->prepare("SELECT id FROM usuarios WHERE nombre = ? AND contrasena = ?");
-        $stmt->bind_param("ss", $nombre, $contrasena);
-        
-        
+        $stmt->bind_param("ss", $nombre, $contrasena);  
         $stmt->bind_result($usuario_id);
         $stmt->execute();
         
         $usuario = null;
-
+        
         if($stmt->fetch()) $usuario = $usuario_id;
         
         $stmt->close();
         
         return $usuario;
     }
+    
+    public function identificarTipo($usuario_id){
 
+        $stmt = $this->conn->getConn()->prepare("SELECT tipo FROM usuarios WHERE id = ?;");
+        $stmt->bind_param("s", $tipo);  
+        $stmt->bind_result($tipo);
+        $stmt->execute();
+
+        $stmt->fetch();
+        $stmt->close();
+
+        return $tipo;
+    }
     public function registrarUsuario() {
         $db = new db();
         $conn = $db->getConn();
