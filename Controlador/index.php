@@ -49,6 +49,46 @@ function agregarAmigo() {
     // dashboard();
 }
 
+function actualizarAmigoAdmin(){
+    session_start();
+    $id = $_POST['id'];
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $fecha_nac = $_POST['fecha_nac'];
+
+    $amigo = new Amigo();
+
+    $amigos = $amigo->actualizarAmigo($id, $nombre, $apellidos, $fecha_nac);
+
+    if ($amigos) {
+        echo "Amigo actualizado correctamente.";
+        header('Location: index.php?action=dashboard');
+    } else {
+        echo "Error al actualizar el amigo.";
+        require_once ("../Vista/editarAmigo.php");
+    }
+}
+
+function actualizarAmigo(){
+    session_start();
+    $id = $_POST['id'];
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $fecha_nac = $_POST['fecha_nac'];
+    $usuario = $_SESSION['usuario_id'];
+
+    $amigo = new Amigo();
+
+    $amigos = $amigo->actualizarAmigo($id, $nombre, $apellidos, $fecha_nac, $usuario);
+
+    if ($amigos) {
+        echo "Amigo actualizado correctamente.";
+        header('Location: index.php?action=dashboard');
+    } else {
+        echo "Error al actualizar el amigo.";
+        require_once ("../Vista/editarAmigo.php");
+    }
+}
 
 function dashboard() {
     session_start();
@@ -63,11 +103,14 @@ function dashboard() {
     $tipo = new Usuario();
 
     $_SESSION["tipo"] = $tipo->identificarTipo($_SESSION['usuario_id']);
-    var_dump($_SESSION["tipo"]);
-    die();
+    // var_dump($_SESSION["tipo"]);
+    // die();
     
     if (strcmp($_SESSION["tipo"], "admin") == 0) {
-        require_once('../');
+        $tabla = new Amigo();
+        $amigos = $tabla->obtenerTodosAmigos($_SESSION['usuario_id']);
+    
+        require_once '../Vista/listaAmigos.php';
     }else{
         $tabla = new Amigo();
         $amigos = $tabla->obtenerAmigosPorUsuario($_SESSION['usuario_id']);

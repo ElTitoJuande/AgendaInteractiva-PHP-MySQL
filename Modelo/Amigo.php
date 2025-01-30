@@ -33,6 +33,20 @@ class Amigo {
         
         return $amigos;
     }
+    public function obtenerTodosAmigos() {
+        $sentencia = "SELECT amigos.id, amigos.nombre, apellidos, fecha_nac, usuarios.nombre FROM amigos, usuarios WHERE amigos.usuario = usuarios.id";
+        $stmt = $this->conn->getConn()->prepare($sentencia);
+        $stmt->bind_result($id, $nombre, $apellidos, $fecha_nac, $usuario);
+        $amigos=array();
+        $stmt->execute();
+        while ($stmt->fetch()) {
+            $amigos[] = array("id" => $id,"nombre" => $nombre, "apellidos" => $apellidos, "fecha_nac" => $fecha_nac, "usuario" => $usuario);
+        }
+
+        $stmt -> close();
+        
+        return $amigos;
+    }
 
     public function agregarAmigo($nombre, $apellidos, $fecha_nac, $usuario) {
         $sentencia = "INSERT INTO amigos (nombre, apellidos, fecha_nac, usuario) VALUES (?, ?, ?, ?)";
@@ -40,26 +54,6 @@ class Amigo {
         $stmt->bind_param("sssi", $nombre, $apellidos, $fecha_nac, $usuario);
         return $stmt->execute();
     }
-
-    // if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    //     $nombre = $_POST['nombre'];
-    //     $apellidos = $_POST['apellidos'];
-    //     $fecha_nac = $_POST['fecha_nac'];
-    
-    //     $amigo = new Amigo();
-    //     $amigo->nombre = $nombre;
-    //     $amigo->apellidos = $apellidos;
-    //     $amigo->fecha_nac = $fecha_nac;
-    //     $amigo->usuario = $_SESSION['usuario_id'];
-    // }
-    
-    //     if ($amigo->agregarAmigo()) {
-    //         header('Location: lista_amigos.php');
-    //         exit();
-    //     } else {
-    //         $error = 'Error al guardar el amigo';
-    //     }
-
 
     public function eliminarAmigo($id) {
         $sentencia = "DELETE FROM amigos WHERE id = ?";

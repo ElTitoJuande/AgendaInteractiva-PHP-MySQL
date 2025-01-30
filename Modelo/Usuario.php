@@ -35,13 +35,11 @@ class Usuario {
     public function identificarTipo($usuario_id){
 
         $stmt = $this->conn->getConn()->prepare("SELECT tipo FROM usuarios WHERE id = ?;");
-        $stmt->bind_param("s", $tipo);  
+        $stmt->bind_param("s", $usuario_id);  
         $stmt->bind_result($tipo);
         $stmt->execute();
 
         $stmt->fetch();
-        $stmt->close();
-
         return $tipo;
     }
     public function registrarUsuario() {
