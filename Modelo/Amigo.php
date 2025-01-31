@@ -18,7 +18,7 @@ class Amigo {
         $this->usuario;
     }
 
-    public function obtenerAmigosPorUsuario($usuarioId) {
+    public function listarAmigosPorUsuario($usuarioId) {
         $sentencia = "SELECT id, nombre, apellidos, fecha_nac FROM amigos WHERE usuario = ?";
         $stmt = $this->conn->getConn()->prepare($sentencia);
         $stmt->bind_param("i", $usuarioId);
@@ -33,7 +33,7 @@ class Amigo {
         
         return $amigos;
     }
-    public function obtenerTodosAmigos() {
+    public function listarAmigos() {
         $sentencia = "SELECT amigos.id, amigos.nombre, apellidos, fecha_nac, usuarios.nombre FROM amigos, usuarios WHERE amigos.usuario = usuarios.id";
         $stmt = $this->conn->getConn()->prepare($sentencia);
         $stmt->bind_result($id, $nombre, $apellidos, $fecha_nac, $usuario);
@@ -46,6 +46,13 @@ class Amigo {
         $stmt -> close();
         
         return $amigos;
+    }
+
+    public function editarAmigoAdmin($id, $nombre, $apellidos, $fecha_nac, $usuario) {
+        $sentencia = "UPDATE amigos SET nombre = ?, apellidos = ?, fecha_nac = ?, usuario = ? WHERE id = ?";
+        $stmt = $this->conn->getConn()->prepare($sentencia);
+        $stmt->bind_param("ssssi", $nombre, $apellidos, $fecha_nac, $usuario, $id);
+        return $stmt->execute();
     }
 
     public function agregarAmigo($nombre, $apellidos, $fecha_nac, $usuario) {

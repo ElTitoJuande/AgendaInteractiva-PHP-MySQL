@@ -41,7 +41,8 @@ if (isset($_SESSION['usuario_id'])) {
                             <td><?= $amigo["fecha_nac"] ?></td>
                             <td><?= $amigo["usuario"] ?></td>
                             <td> 
-                            <form action="../Vista/editarAmigo.php?id=<?= $amigo["id"] ?>" method="get">
+                            <form action="index.php?action=editarAmigoAdmin" method="get">
+                                <input type="hidden" name="id" value="<?= $amigo["id"] ?>">
                                 <input type="submit" class="btn" value="Editar">
                             </form>
                             </td>
@@ -79,6 +80,7 @@ if (isset($_SESSION['usuario_id'])) {
                             <th>Nombre</th>
                             <th>Apellido</th>
                             <th>Fecha de Nacimiento</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,6 +89,12 @@ if (isset($_SESSION['usuario_id'])) {
                             <td><?= $amigo["nombre"] ?></td>
                             <td><?= $amigo["apellidos"] ?></td>
                             <td><?= $amigo["fecha_nac"] ?></td>
+                            <td> 
+                            <form action="index.php?action=editarAmigo" method="get">
+                                <input type="hidden" name="id" value="<?= $amigo["id"] ?>">
+                                <input type="submit" class="btn" value="Editar">
+                            </form>
+                            </td>                            
                         </tr>
                         <?php endforeach; ?>
                     </tbody>

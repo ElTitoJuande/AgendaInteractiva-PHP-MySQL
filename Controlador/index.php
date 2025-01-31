@@ -28,7 +28,7 @@ function login() {
     }
 }
 
-function agregarAmigo() {
+function agregarAmigoAdmin() {
     session_start();
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
@@ -49,8 +49,11 @@ function agregarAmigo() {
     // dashboard();
 }
 
-function actualizarAmigoAdmin(){
+
+function editarAmigoAdmin(){
     session_start();
+    // var_dump($action);
+    // die();
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
@@ -58,18 +61,18 @@ function actualizarAmigoAdmin(){
 
     $amigo = new Amigo();
 
-    $amigos = $amigo->actualizarAmigo($id, $nombre, $apellidos, $fecha_nac);
+    $amigos = $amigo->editarAmigo($id, $nombre, $apellidos, $fecha_nac);
 
     if ($amigos) {
-        echo "Amigo actualizado correctamente.";
-        header('Location: index.php?action=dashboard');
+        echo "Amigo editado correctamente.";
+        require_once ("../Vista/listaAmigo.php");
     } else {
-        echo "Error al actualizar el amigo.";
+        echo "Error al editar el amigo.";
         require_once ("../Vista/editarAmigo.php");
     }
 }
 
-function actualizarAmigo(){
+function editarAmigo(){
     session_start();
     $id = $_POST['id'];
     $nombre = $_POST['nombre'];
@@ -79,13 +82,13 @@ function actualizarAmigo(){
 
     $amigo = new Amigo();
 
-    $amigos = $amigo->actualizarAmigo($id, $nombre, $apellidos, $fecha_nac, $usuario);
+    $amigos = $amigo->editarAmigo($id, $nombre, $apellidos, $fecha_nac, $usuario);
 
     if ($amigos) {
-        echo "Amigo actualizado correctamente.";
+        echo "Amigo editado correctamente.";
         header('Location: index.php?action=dashboard');
     } else {
-        echo "Error al actualizar el amigo.";
+        echo "Error al editar el amigo.";
         require_once ("../Vista/editarAmigo.php");
     }
 }
@@ -108,12 +111,12 @@ function dashboard() {
     
     if (strcmp($_SESSION["tipo"], "admin") == 0) {
         $tabla = new Amigo();
-        $amigos = $tabla->obtenerTodosAmigos($_SESSION['usuario_id']);
+        $amigos = $tabla->listarAmigos($_SESSION['usuario_id']);
     
         require_once '../Vista/listaAmigos.php';
     }else{
         $tabla = new Amigo();
-        $amigos = $tabla->obtenerAmigosPorUsuario($_SESSION['usuario_id']);
+        $amigos = $tabla->listarAmigosPorUsuario($_SESSION['usuario_id']);
     
         require_once '../Vista/listaAmigos.php';    
     }
