@@ -1,3 +1,4 @@
+<main>
 <?php
 // Verifica si el usuario tiene una sesión iniciada
 if (isset($_SESSION['usuario_id'])) {
@@ -82,3 +83,4 @@ if (isset($_SESSION['usuario_id'])) {
     exit;
 }
 ?>
+</main>

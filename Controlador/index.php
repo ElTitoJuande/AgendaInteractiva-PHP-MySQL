@@ -48,6 +48,25 @@ function agregarAmigoAdmin() {
     }
     // dashboard();
 }
+function agregarAmigo(){
+    session_start();
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $fecha_nac = $_POST['fecha_nac'];
+    $usuario = $_SESSION['usuario_id'];
+
+    $amigo = new Amigo();
+
+    $amigos = $amigo->agregarAmigo($nombre, $apellidos, $fecha_nac, $usuario);
+
+    if ($amigos) {
+        echo "Amigo agregado correctamente.";
+        header('Location: index.php?action=dashboard');
+    } else {
+        echo "Error al agregar el amigo.";
+        require_once ("../Vista/nuevoAmigo.php");
+    }
+}
 
 
 function editarAmigoAdmin(){

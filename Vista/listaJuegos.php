@@ -1,3 +1,4 @@
+<main>
 <?php
 session_start();
 require_once('../modelos/Juego.php');
@@ -12,7 +13,7 @@ $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
 $juegos = Juego::listarPorUsuario($_SESSION['usuario_id'], $busqueda);
 ?>
 
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -61,4 +62,6 @@ $juegos = Juego::listarPorUsuario($_SESSION['usuario_id'], $busqueda);
         </table>
     </div>
 </body>
-</html>
+</html> -->
+
+</main

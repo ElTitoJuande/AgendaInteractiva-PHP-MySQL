@@ -1,3 +1,5 @@
+<main>
+
 <?php
 session_start();
 require_once('../modelo/Prestamo.php');
@@ -12,7 +14,7 @@ $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : '';
 $mostrarActivos = isset($_GET['activos']) ? true : false;
 $prestamos = Prestamo::listarPorUsuario($_SESSION['usuario_id'], $busqueda, $mostrarActivos);
 ?>
-
+<!-- 
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -63,4 +65,6 @@ $prestamos = Prestamo::listarPorUsuario($_SESSION['usuario_id'], $busqueda, $mos
         </table>
     </div>
 </body>
-</html>
+</html> -->
+
+</main>

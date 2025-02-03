@@ -1,8 +1,12 @@
  <?php
+             session_start();
 // Verifica si el usuario tiene una sesión iniciada
+var_dump($_SESSION['usuario_id']);
 if (isset($_SESSION['usuario_id'])) {
+    
     // Verifica si el usuario es administrador
     if (strcmp($_SESSION["tipo"], "admin") == 0) {
+        
         ?>
         <!DOCTYPE html>
         <html lang="es">
@@ -38,6 +42,7 @@ if (isset($_SESSION['usuario_id'])) {
     } else {
         // Vista para usuarios normales
         ?>
+        
         <!DOCTYPE html>
         <html lang="es">
         <head>
