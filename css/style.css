@@ -53,7 +53,7 @@ table th {
 /* Botones */
 .btn {
     display: inline-block;
-    background-color: #007bff;
+    background-color: #855f45;
     color: white;
     padding: 10px 15px;
     text-decoration: none;
@@ -65,6 +65,7 @@ table th {
 
 .btn-secundario {
     background-color: #6c757d;
+    padding: 10px 15px;
 }
 
 /* Búsqueda */

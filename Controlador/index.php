@@ -19,12 +19,15 @@ function login() {
             $_SESSION['usuario_id'] = $usuario->autenticarUsuario($nombre, $contrasena);
             header('Location: index.php?action=dashboard');
         }else{
-    
+            require_once ("../HeaderFooter/header.html");
             require_once ("../Vista/login.php");
+            require_once ("../HeaderFooter/footer.html");
         }
     }else{
 
-        require_once ("../Vista/login.php");
+            require_once ("../HeaderFooter/header.html");
+            require_once ("../Vista/login.php");
+            require_once ("../HeaderFooter/footer.html");
     }
 }
 
@@ -44,7 +47,9 @@ function agregarAmigoAdmin() {
         header('Location: index.php?action=dashboard');
     } else {
         echo "Error al agregar el amigo.";
+        require_once ("../HeaderFooter/header.html");
         require_once ("../Vista/nuevoAmigo.php");
+        require_once ("../HeaderFooter/footer.html");
     }
     // dashboard();
 }
@@ -64,7 +69,9 @@ function agregarAmigo(){
         header('Location: index.php?action=dashboard');
     } else {
         echo "Error al agregar el amigo.";
+        require_once ("../HeaderFooter/header.html");
         require_once ("../Vista/nuevoAmigo.php");
+        require_once ("../HeaderFooter/footer.html");
     }
 }
 
@@ -84,10 +91,14 @@ function editarAmigoAdmin(){
 
     if ($amigos) {
         echo "Amigo editado correctamente.";
+        require_once ("../HeaderFooter/header.html");
         require_once ("../Vista/listaAmigo.php");
+        require_once ("../HeaderFooter/footer.html");
     } else {
         echo "Error al editar el amigo.";
+        require_once ("../HeaderFooter/header.html");
         require_once ("../Vista/editarAmigo.php");
+        require_once ("../HeaderFooter/footer.html");
     }
 }
 
@@ -108,7 +119,9 @@ function editarAmigo(){
         header('Location: index.php?action=dashboard');
     } else {
         echo "Error al editar el amigo.";
+        require_once ("../HeaderFooter/header.html");
         require_once ("../Vista/editarAmigo.php");
+        require_once ("../HeaderFooter/footer.html");
     }
 }
 
@@ -132,12 +145,15 @@ function dashboard() {
         $tabla = new Amigo();
         $amigos = $tabla->listarAmigos($_SESSION['usuario_id']);
     
+        require_once ("../HeaderFooter/header.html");
         require_once '../Vista/listaAmigos.php';
+        require_once ("../HeaderFooter/footer.html");
     }else{
         $tabla = new Amigo();
         $amigos = $tabla->listarAmigosPorUsuario($_SESSION['usuario_id']);
-    
-        require_once '../Vista/listaAmigos.php';    
+        require_once ("../HeaderFooter/header.html");
+        require_once '../Vista/listaAmigos.php';  
+        require_once ("../HeaderFooter/footer.html");  
     }
 }
 
