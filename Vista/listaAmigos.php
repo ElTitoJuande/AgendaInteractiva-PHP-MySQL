@@ -3,10 +3,11 @@
 <?php
 // Verifica si el usuario tiene una sesión iniciada
 if (isset($_SESSION['usuario_id'])) {
-
+    
     // Verifica si el usuario es administrador
     if (strcmp($_SESSION["tipo"], "admin") == 0) {
         // Vista de lista de amigos para administradores
+        var_dump($amigos);
         ?>
         <!DOCTYPE html>
         <html lang="es">
@@ -18,9 +19,9 @@ if (isset($_SESSION['usuario_id'])) {
         <body>
             <div class="container">
                 <h1>Mis Amigos - Contactos (Administrador)</h1>
-                
-                <form action="index.php?action=nuevoAmigo" method="get" class="busqueda">
-                    <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?= $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : ''?>">
+
+                <form action="index.php?action=buscarAmigoAdmin" method="post" class="busqueda">
+                    <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>">
                     <button type="submit">Buscar</button>
                     <a href="../Vista/nuevoAmigo.php">Añadir nuevo amigo</a>
                 </form>
@@ -43,7 +44,7 @@ if (isset($_SESSION['usuario_id'])) {
                             <td><?= $amigo["fecha_nac"] ?></td>
                             <td><?= $amigo["usuario"] ?></td>
                             <td> 
-                            <form action="index.php?action=editarAmigoAdmin" method="get">
+                            <form action="index.php?action=editarAmigoAdmin" method="post">
                                 <input type="hidden" name="id" value="<?= $amigo["id"] ?>">
                                 <input type="submit" class="btn" value="Editar">
                             </form>
@@ -70,8 +71,8 @@ if (isset($_SESSION['usuario_id'])) {
             <div class="container">
                 <h1>Mis Amigos</h1>
                 
-                <form action="index.php?action=nuevoAmigo" method="get" class="busqueda">
-                    <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?= $busqueda = isset($_GET['busqueda']) ? $_GET['busqueda'] : ''?>">
+                <form action="index.php?action=buscarAmigo" method="post" class="busqueda">
+                    <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>">
                     <button type="submit">Buscar</button>
                     <a href="../Vista/nuevoAmigo.php">Añadir nuevo amigo</a>
                 </form>
@@ -92,7 +93,7 @@ if (isset($_SESSION['usuario_id'])) {
                             <td><?= $amigo["apellidos"] ?></td>
                             <td><?= $amigo["fecha_nac"] ?></td>
                             <td> 
-                            <form action="index.php?action=editarAmigo" method="get">
+                            <form action="index.php?action=editarAmigo" method="post">
                                 <input type="hidden" name="id" value="<?= $amigo["id"] ?>">
                                 <input type="submit" class="btn" value="Editar">
                             </form>

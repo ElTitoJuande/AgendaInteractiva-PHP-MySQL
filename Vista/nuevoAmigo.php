@@ -33,8 +33,10 @@ if (isset($_SESSION['usuario_id'])) {
                         <input type="date" id="fecha_nac" name="fecha_nac" required>
                     </div>
                     <button type="submit" class="btn">Guardar Amigo</button>
-                    <a href="../Vista/listaAmigos.php" class="btn btn-secundario">Volver a la lista de amigos</a>
                 </form>
+                <form action="../Controlador/index.php?action=volverListaAmigos" method="post">
+                        <button type="submit" class="btn">Volver a la lista de amigos</button>
+                    </form>
             </div>
         </body>
         </html>
@@ -71,8 +73,10 @@ if (isset($_SESSION['usuario_id'])) {
                     </div>
 
                     <button type="submit" class="btn">Guardar Amigo</button>
-                    <a href="../Vista/listaAmigos.php" class="btn btn-secundario">Volver a la lista de amigos</a>
                 </form>
+                <form action="../Controlador/index.php?action=volverListaAmigos" method="post">
+                        <button type="submit" class="btn">Volver a la lista de amigos</button>
+                    </form>
             </div>
         </body>
         </html>

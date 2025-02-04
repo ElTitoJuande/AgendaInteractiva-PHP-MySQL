@@ -30,6 +30,68 @@ function login() {
             require_once ("../HeaderFooter/footer.html");
     }
 }
+function actualizarAmigo(){
+    session_start();    
+    $id = $_POST['id'];
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $fecha_nac = $_POST['fecha_nac'];
+    // $usuario = $_SESSION['usuario_id'];
+
+    $amigo = new Amigo();
+    
+    $amigos = $amigo->editarAmigo($id, $nombre, $apellidos, $fecha_nac);
+    var_dump($amigos);
+
+
+    if ($amigos) {
+        echo "Amigo actualizado correctamente.";
+        header('Location: index.php?action=dashboard');
+    } else {
+        echo "Error al actualizar el amigo.";
+        require_once ("../HeaderFooter/header.html");
+        require_once ("../Vista/editarAmigo.php");
+        require_once ("../HeaderFooter/footer.html");
+    }
+}
+function volverListaAmigos(){
+    session_start();
+    header('Location: index.php?action=dashboard');
+}
+function buscarAmigo(){
+    $busqueda = $_POST['busqueda'];
+    
+    if (strlen($busqueda) > 0) {
+        session_start();
+        $amigo = new Amigo();
+        
+        $amigos = $amigo->buscarAmigoPorNombre($busqueda);
+        $amigos = array($amigos);
+        var_dump($amigos);
+        
+        require_once ("../Vista/listaAmigos.php");
+    }else{
+        header('Location: index.php?action=dashboard');
+    }
+
+}
+function buscarAmigoAdmin(){
+    $busqueda = $_POST['busqueda'];
+    
+    if (strlen($busqueda) > 0) {
+        session_start();
+        $amigo = new Amigo();
+        
+        $amigos = $amigo->buscarAmigoPorNombreAdmin($busqueda);
+        $amigos = array($amigos);
+        var_dump($amigos);
+        
+        require_once ("../Vista/listaAmigos.php");
+    }else{
+        header('Location: index.php?action=dashboard');
+    }
+
+}
 
 function agregarAmigoAdmin() {
     session_start();
@@ -74,55 +136,31 @@ function agregarAmigo(){
         require_once ("../HeaderFooter/footer.html");
     }
 }
-
-
 function editarAmigoAdmin(){
     session_start();
-    // var_dump($action);
-    // die();
+    
     $id = $_POST['id'];
-    $nombre = $_POST['nombre'];
-    $apellidos = $_POST['apellidos'];
-    $fecha_nac = $_POST['fecha_nac'];
+    
+    $amigoClass = new Amigo();
+    $amigo = $amigoClass->buscarAmigoPorIdAdmin($id);
+    var_dump($amigo);
 
-    $amigo = new Amigo();
+    // header('Location: index.php?action=editarAmigo&amigo=' . $amigo);
+    require_once ("../Vista/editarAmigo.php");
 
-    $amigos = $amigo->editarAmigo($id, $nombre, $apellidos, $fecha_nac);
-
-    if ($amigos) {
-        echo "Amigo editado correctamente.";
-        require_once ("../HeaderFooter/header.html");
-        require_once ("../Vista/listaAmigo.php");
-        require_once ("../HeaderFooter/footer.html");
-    } else {
-        echo "Error al editar el amigo.";
-        require_once ("../HeaderFooter/header.html");
-        require_once ("../Vista/editarAmigo.php");
-        require_once ("../HeaderFooter/footer.html");
-    }
 }
-
 function editarAmigo(){
     session_start();
+
     $id = $_POST['id'];
-    $nombre = $_POST['nombre'];
-    $apellidos = $_POST['apellidos'];
-    $fecha_nac = $_POST['fecha_nac'];
-    $usuario = $_SESSION['usuario_id'];
 
-    $amigo = new Amigo();
+    $amigoClass = new Amigo();
 
-    $amigos = $amigo->editarAmigo($id, $nombre, $apellidos, $fecha_nac, $usuario);
+    $amigo = $amigoClass->buscarAmigoPorId($id);
 
-    if ($amigos) {
-        echo "Amigo editado correctamente.";
-        header('Location: index.php?action=dashboard');
-    } else {
-        echo "Error al editar el amigo.";
-        require_once ("../HeaderFooter/header.html");
-        require_once ("../Vista/editarAmigo.php");
-        require_once ("../HeaderFooter/footer.html");
-    }
+    // header('Location: index.php?action=editarAmigo&amigo=' . $amigo);
+    require_once ("../Vista/editarAmigo.php");
+
 }
 
 function dashboard() {
