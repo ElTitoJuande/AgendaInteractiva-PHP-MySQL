@@ -2,45 +2,81 @@
 require_once '../Modelo/class.db.php';
 
 class Juego {
+    private $conn;
     public $id;
     public $titulo;
     public $plataforma;
     public $lanzamiento;
     public $img;
     public $usuario;
-
-    public function guardar() {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $stmt = $conn->prepare("INSERT INTO juegos (titulo, plataforma, lanzamiento, img, usuario) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("ssssi", $this->titulo, $this->plataforma, $this->lanzamiento, $this->img, $this->usuario);
-        
-        $resultado = $stmt->execute();
-        $this->id = $conn->insert_id;
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $resultado;
+    
+    public function __construct() {
+        $this->conn = new db();
+        $this->id;
+        $this->titulo;
+        $this->plataforma;
+        $this->lanzamiento;
+        $this->img;
+        $this->usuario;
     }
 
-    public function actualizar() {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $stmt = $conn->prepare("UPDATE juegos SET titulo = ?, plataforma = ?, lanzamiento = ?, img = ? WHERE id = ? AND usuario = ?");
-        $stmt->bind_param("ssssii", $this->titulo, $this->plataforma, $this->lanzamiento, $this->img, $this->id, $this->usuario);
-        
-        $resultado = $stmt->execute();
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $resultado;
+    public function listarJuegos($id) {
+        $sentencia = "SELECT juegos.id, juegos.titulo, juegos.plataforma, juegos.lanzamiento, juegos.img, juegos.usuario FROM juegos,usuarios WHERE juegos.usuario = usuarios.id AND usuarios.id = ?";
+        $stmt = $this->conn->getConn()->prepare($sentencia);
+        $stmt->bind_param("i", $id);
+        $stmt->bind_result($id, $titulo, $plataforma, $lanzamiento, $img, $usuario);
+        $juegos=array();
+        $stmt->execute();
+        while ($stmt->fetch()) {
+            $juegos[] = array("id" => $id,"titulo" => $titulo, "plataforma" => $plataforma, "lanzamiento" => $lanzamiento, "img" => $img, "usuario" => $usuario);
+        }
+        $stmt -> close();
+        return $juegos;
+
     }
 
-    public function eliminar() {
+    public function buscarJuegoTitulo($titulo) {
+        $sentencia = "SELECT juegos.id, juegos.titulo, juegos.plataforma, juegos.lanzamiento, juegos.img, juegos.usuario FROM juegos WHERE titulo = ?";
+        $stmt = $this->conn->getConn()->prepare($sentencia);
+        $stmt->bind_param("s", $titulo);
+        $stmt->bind_result($id, $titulo, $plataforma, $lanzamiento, $img, $usuario);
+        $stmt->execute();
+        $stmt->fetch();
+        $juego = array("id" => $id,"titulo" => $titulo, "plataforma" => $plataforma, "lanzamiento" => $lanzamiento, "img" => $img, "usuario" => $usuario);
+        $stmt -> close();
+        return $juego;
+    }
+
+    public function buscarJuegoPorId($id) {
+        $sentencia = "SELECT juegos.id, juegos.titulo, juegos.plataforma, juegos.lanzamiento, juegos.img, juegos.usuario FROM juegos WHERE id = ?";
+        $stmt = $this->conn->getConn()->prepare($sentencia);
+        $stmt->bind_param("i", $id);
+        $stmt->bind_result($id, $titulo, $plataforma, $lanzamiento, $img, $usuario);
+        $stmt->execute();
+        $stmt->fetch();
+        $juego = array("id" => $id,"titulo" => $titulo, "plataforma" => $plataforma, "lanzamiento" => $lanzamiento, "img" => $img, "usuario" => $usuario);
+        $stmt -> close();
+        return $juego;
+    }
+
+    //ver si tengo que pasarle id de la session o del usuario
+    public function editarJuego($titulo, $plataforma, $lanzamiento, $img, $id){
+        $sentencia = "UPDATE juegos SET titulo = ?, plataforma = ?, lanzamiento = ?, img = ? WHERE id = ?";
+        $stmt = $this->conn->getConn()->prepare($sentencia);
+        $stmt->bind_param("ssssi", $titulo, $plataforma, $lanzamiento, $img, $id);
+        return $stmt->execute();
+    }
+
+    //ver si tengo que pasarle id de la session o del usuario
+    public function agregarJuego(){
+        $sentencia = "INSERT INTO juegos (titulo, plataforma, lanzamiento, img) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $this->conn->getConn()->prepare($sentencia);
+        $stmt->bind_param("ssssi", $this->titulo, $this->plataforma, $this->lanzamiento, $this->img);
+        return $stmt->execute();
+    }
+
+
+    public function eliminarJuego() {
         $db = new db();
         $conn = $db->getConn();
         

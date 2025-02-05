@@ -4,10 +4,10 @@
 // Verifica si el usuario tiene una sesión iniciada
 if (isset($_SESSION['usuario_id'])) {
     
+    // var_dump($amigos);
     // Verifica si el usuario es administrador
     if (strcmp($_SESSION["tipo"], "admin") == 0) {
         // Vista de lista de amigos para administradores
-        var_dump($amigos);
         ?>
         <!DOCTYPE html>
         <html lang="es">

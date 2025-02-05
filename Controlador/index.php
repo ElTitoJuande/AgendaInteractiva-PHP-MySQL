@@ -146,7 +146,9 @@ function editarAmigoAdmin(){
     var_dump($amigo);
 
     // header('Location: index.php?action=editarAmigo&amigo=' . $amigo);
+    require_once ("../HeaderFooter/header.html");
     require_once ("../Vista/editarAmigo.php");
+    require_once ("../HeaderFooter/footer.html");
 
 }
 function editarAmigo(){
@@ -193,6 +195,71 @@ function dashboard() {
         require_once '../Vista/listaAmigos.php';  
         require_once ("../HeaderFooter/footer.html");  
     }
+}
+function listarJuegos(){
+    session_start();
+    // var_dump($_SESSION["tipo"]);
+    
+    if (strcmp($_SESSION["tipo"], "admin") == 0) {
+        $tabla = new Juego();
+        $juegos = $tabla->listarJuegos($_SESSION['usuario_id']);
+        
+        require_once ("../HeaderFooter/header.html");
+        require_once ('../Vista/listaJuegos.php');
+        require_once ("../HeaderFooter/footer.html");
+    }else{
+        $tabla = new Juego();
+        $juegos = $tabla->listarJuegos($_SESSION['usuario_id']);
+        require_once ("../HeaderFooter/header.html");
+        require_once ('../Vista/listaJuegos.php');
+        require_once ("../HeaderFooter/footer.html");  
+    }
+}
+function editarJuegos(){
+    session_start();
+    
+    $id = $_POST['id'];
+    
+    $juegoClass = new Juego();
+    $juego = $juegoClass->buscarJuegoPorId($id);
+    // var_dump($juego);
+    require_once ("../Vista/editarJuegos.php");
+}
+function volverListaJuegos(){
+    session_start();
+    header('Location: index.php?action=listarJuegos');
+}
+
+function actualizarJuego(){
+    session_start();   
+    $id = $_POST['id'];
+    $titulo = $_POST['titulo'];
+    $plataforma = $_POST['plataforma'];
+    $lanzamiento = $_POST['lanzamiento'];
+    $img = $_POST['img'];
+    $usuario = $_SESSION['usuario_id'];
+
+    $juego = new Juego();
+    
+    $juegos = $juego->editarJuego($id, $titulo, $plataforma, $lanzamiento, $img);
+    var_dump($juegos);
+
+
+    if ($juegos) {
+        echo "Juego actualizado correctamente.";
+        header('Location: index.php?action=listarJuegos');
+    } else {
+        echo "Error al actualizar el juego.";
+        require_once ("../HeaderFooter/header.html");
+        require_once ("../Vista/editarJuegos.php");
+        require_once ("../HeaderFooter/footer.html");
+    } 
+    
+}
+function salir(){
+    session_start();
+    session_destroy();
+    header("Location:../Controlador/index.php");
 }
 
 if (isset($_REQUEST['action'])) {
