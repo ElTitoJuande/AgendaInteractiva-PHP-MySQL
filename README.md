@@ -47,4 +47,4 @@ Este proyecto es una aplicación web desarrollada en **PHP** y **MySQL** que per
 ## Instalación
 1. Clona el repositorio:  
    ```bash
-   git clone https://github.com/tu-usuario/agenda-web.git
+   git clone https://github.com/tu-usuario/AgendaInteractiva-PHP-MySQL.git
