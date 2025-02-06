@@ -73,28 +73,40 @@ class Amigo {
         return $amigo;
     }
 
-    public function buscarAmigoPorNombre($nombre) {
-        $sentencia = "SELECT id, nombre, apellidos, fecha_nac FROM amigos WHERE nombre = ?";
+    public function buscarAmigoPorNombre($busqueda,$id) {
+        $sentencia = "SELECT DISTINCT amigos.id, amigos.nombre, amigos.apellidos, amigos.fecha_nac FROM amigos LEFT JOIN usuarios ON amigos.usuario = usuarios.id WHERE usuarios.id = amigos.usuario AND (amigos.nombre LIKE ? OR amigos.apellidos LIKE ?) AND usuarios.id = ?";
+        $amigos = array();
         $stmt = $this->conn->getConn()->prepare($sentencia);
-        $stmt->bind_param("s", $nombre);
+        $busqueda = "%$busqueda%";
+        $stmt->bind_param("ssi", $busqueda, $busqueda, $id);
         $stmt->bind_result($id, $nombre, $apellidos, $fecha_nac);
         $stmt->execute();
-        $stmt->fetch();
-        $amigo = array("id" => $id,"nombre" => $nombre, "apellidos" => $apellidos, "fecha_nac" => $fecha_nac);
+        // var_dump($sentencia);
+        while ($stmt->fetch()) {
+            $amigos[] = array("id" => $id, "nombre" => $nombre, "apellidos" => $apellidos, "fecha_nac" => $fecha_nac);
+        }
+        // var_dump($amigos);
         $stmt -> close();
-        return $amigo;        
+        return $amigos;        
     }
-    public function buscarAmigoPorNombreAdmin($nombre) {
-        $sentencia = "SELECT id, nombre, apellidos, fecha_nac, usuario FROM amigos WHERE nombre = ?";
+    
+    public function buscarAmigoPorNombreAdmin($busqueda) {
+        $sentencia = "SELECT DISTINCT amigos.id, amigos.nombre, amigos.apellidos, amigos.fecha_nac, usuarios.nombre FROM amigos LEFT JOIN usuarios ON amigos.usuario = usuarios.id WHERE usuarios.id = amigos.usuario AND (amigos.nombre LIKE ? OR amigos.apellidos LIKE ?)";    
+        $amigos = array();
         $stmt = $this->conn->getConn()->prepare($sentencia);
-        $stmt->bind_param("s", $nombre);
-        $stmt->bind_result($id, $nombre, $apellidos, $fecha_nac, $usuario);
+        $busqueda = "%$busqueda%";
+        $stmt->bind_param("ss", $busqueda, $busqueda);
         $stmt->execute();
-        $stmt->fetch();
-        $amigo = array("id" => $id,"nombre" => $nombre, "apellidos" => $apellidos, "fecha_nac" => $fecha_nac, "usuario" => $usuario);
-        $stmt -> close();
-        return $amigo;        
+        $stmt->bind_result($id, $nombre, $apellidos, $fecha_nac, $usuario);
+        
+        while ($stmt->fetch()) {
+            $amigos[] = array("id" => $id, "nombre" => $nombre, "apellidos" => $apellidos, "fecha_nac" => $fecha_nac, "usuario" => $usuario);
+        }
+        
+        $stmt->close();
+        return $amigos;        
     }
+    
 
     public function editarAmigoAdmin($id, $nombre, $apellidos, $fecha_nac, $usuario) {
         $sentencia = "UPDATE amigos SET nombre = ?, apellidos = ?, fecha_nac = ?, usuario = ? WHERE id = ?";

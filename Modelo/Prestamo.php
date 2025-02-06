@@ -2,6 +2,7 @@
 require_once('../Modelo/class.db.php');
 
 class Prestamo {
+    private $conn;
     public $id;
     public $usuario;
     public $amigo;

@@ -1,6 +1,5 @@
 <main>
-
-<?php
+    <?php
 // Verifica si el usuario tiene una sesión iniciada
 if (isset($_SESSION['usuario_id'])) {
     
@@ -21,13 +20,13 @@ if (isset($_SESSION['usuario_id'])) {
                 <h1>Mis Amigos - Contactos (Administrador)</h1>
 
                 <div class="botones">
-                    <!-- <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>"> -->
-                    <form action="index.php?action=redirigirBuscarAmigoAdmin" method="post">
+                    <form action="index.php?action=BuscarAmigoAdmin" method="post">
+                        <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>">
                          <button type="submit">Buscar</button>
                      </form>
-                    <a href="../Vista/nuevoAmigo.php">Añadir nuevo amigo</a>
+                     <a href="../Vista/nuevoAmigo.php">Añadir nuevo amigo</a>
                 </div>
-
+                
                 <table>
                     <thead>
                         <tr>
@@ -56,6 +55,7 @@ if (isset($_SESSION['usuario_id'])) {
                         <?php endforeach; ?>
                     </tbody>
                 </table>
+                           
             </div>
         </body>
         </html>
@@ -74,10 +74,14 @@ if (isset($_SESSION['usuario_id'])) {
             <div class="container">
                 <h1>Mis Amigos</h1>
                 
-                <form action="index.php?action=redirigirBuscarAmigo" method="post">
-                    <button type="submit">Buscar</button>
-                </form>
-                    <a href="../Vista/nuevoAmigo.php">Añadir nuevo amigo</a>
+                <div class="botones">
+                    <form action="index.php?action=BuscarAmigo" method="post">
+                        <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>">
+                         <button type="submit">Buscar</button>
+                     </form>
+                     <a href="../Vista/nuevoAmigo.php">Añadir nuevo amigo</a>
+                </div>
+
                 <table>
                     <thead>
                         <tr>

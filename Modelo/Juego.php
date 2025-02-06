@@ -35,16 +35,20 @@ class Juego {
 
     }
 
-    public function buscarJuegoTitulo($titulo) {
-        $sentencia = "SELECT juegos.id, juegos.titulo, juegos.plataforma, juegos.lanzamiento, juegos.img, juegos.usuario FROM juegos WHERE titulo = ?";
+    public function buscarJuegoTitulo($busqueda, $id) {
+        $sentencia = "SELECT DISTINCT juegos.id, juegos.titulo, juegos.plataforma, juegos.lanzamiento, juegos.img, juegos.usuario FROM juegos LEFT JOIN usuarios ON juegos.usuario = usuarios.id  WHERE juegos.titulo LIKE ? AND juegos.usuario = ?"; 
+        $juegos=array();
         $stmt = $this->conn->getConn()->prepare($sentencia);
-        $stmt->bind_param("s", $titulo);
+        $busqueda = "%$busqueda%";
+        $stmt->bind_param("si", $busqueda, $id);
         $stmt->bind_result($id, $titulo, $plataforma, $lanzamiento, $img, $usuario);
         $stmt->execute();
-        $stmt->fetch();
-        $juego = array("id" => $id,"titulo" => $titulo, "plataforma" => $plataforma, "lanzamiento" => $lanzamiento, "img" => $img, "usuario" => $usuario);
+        while ($stmt->fetch()) {
+            $juegos[] = array("id" => $id,"titulo" => $titulo, "plataforma" => $plataforma, "lanzamiento" => $lanzamiento, "img" => $img, "usuario" => $usuario);
+        }
+        
         $stmt -> close();
-        return $juego;
+        return $juegos;
     }
 
     public function buscarJuegoPorId($id) {

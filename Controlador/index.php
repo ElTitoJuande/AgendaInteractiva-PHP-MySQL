@@ -78,46 +78,52 @@ function actualizarAmigoAdmin(){
         require_once ("../Vista/footer.php");
     }
 }
-
 function volverListaAmigos(){
     session_start();
     header('Location: index.php?action=dashboard');
 }
+// Función para buscar un amigo
 function buscarAmigo(){
+    session_start();
     $busqueda = $_POST['busqueda'];
+    $id = $_SESSION['usuario_id'];
     
     if (strlen($busqueda) > 0) {
-        session_start();
         $amigo = new Amigo();
         
-        $amigos = $amigo->buscarAmigoPorNombre($busqueda);
-        $amigos = array($amigos);
-        var_dump($amigos);
+        $amigos = $amigo->buscarAmigoPorNombre($busqueda, $id);
+        // var_dump($amigos);
         
-        require_once ("../Vista/listaAmigos.php");
-    }else{
-        header('Location: index.php?action=dashboard');
+        require_once ("../Vista/buscarAmigo.php");
     }
+
+}
+function redirigirBuscarAmigo(){
+    session_start();
+    $amigos = [];        
+    require_once ("../Vista/buscarAmigo.php");
 
 }
 function buscarAmigoAdmin(){
     $busqueda = $_POST['busqueda'];
+    // var_dump($busqueda);
     
     if (strlen($busqueda) > 0) {
         session_start();
         $amigo = new Amigo();
         
         $amigos = $amigo->buscarAmigoPorNombreAdmin($busqueda);
-        $amigos = array($amigos);
-        var_dump($amigos);
+        // var_dump($amigos);
         
-        require_once ("../Vista/listaAmigos.php");
-    }else{
-        header('Location: index.php?action=dashboard');
+        require_once ("../Vista/buscarAmigo.php");
     }
+}
+function redirigirBuscarAmigoAdmin(){
+    session_start();
+    $amigos = [];        
+    require_once ("../Vista/buscarAmigo.php");
 
 }
-
 function agregarAmigoAdmin() {
     session_start();
     $nombre = $_POST['nombre'];
@@ -169,15 +175,15 @@ function editarAmigoAdmin(){
     $usuario = new Usuario();
     $usuarios = $usuario->listarUsuarios();
     // var_dump($usuarios);
-
+    
     $amigoClass = new Amigo();
     $amigos = $amigoClass->buscarAmigoPorIdAdmin($id);
     // var_dump($amigo);
-
+    
     require_once ("../Vista/header.php");
     require_once ("../Vista/editarAmigo.php");
     require_once ("../Vista/footer.php");
-
+    
 }
 function editarAmigo(){
     session_start();
@@ -188,13 +194,12 @@ function editarAmigo(){
 
     $amigo = $amigoClass->buscarAmigoPorId($id);
 
-    $usuarios = $amigoClass->listarAmigos($usuario);
+    $usuarios = $amigoClass->listarAmigos();
 
     // header('Location: index.php?action=editarAmigo&amigo=' . $amigo);
     require_once ("../Vista/editarAmigo.php");
 
 }
-
 function dashboard() {
     session_start();
     // var_dump($_SESSION['usuario_id']);
@@ -259,7 +264,6 @@ function volverListaJuegos(){
     session_start();
     header('Location: index.php?action=listarJuegos');
 }
-
 function actualizarJuego(){
     session_start();   
     $id = $_POST['id'];
@@ -286,10 +290,51 @@ function actualizarJuego(){
     } 
     
 }
+function buscarJuego(){
+    session_start();
+    $busqueda = $_POST['busqueda'];
+    $id = $_SESSION['usuario_id'];
+    
+    if (strlen($busqueda) > 0) {
+        $juego = new Juego();
+        
+        $juegos = $juego->buscarJuegoTitulo($busqueda, $id);
+        // var_dump($juegos);
+        
+        require_once ("../Vista/buscarJuego.php");
+    }
+
+}
+function redirigirBuscarJuego(){
+    session_start();
+    $juegos = [];        
+    require_once ("../Vista/buscarJuego.php");
+
+}
 function salir(){
     session_start();
     session_destroy();
     header("Location:../Controlador/index.php");
+}
+
+function listarUsuarios(){
+    session_start();
+    // var_dump($_SESSION["tipo"]);
+    
+    if (strcmp($_SESSION["tipo"], "admin") == 0) {
+        $tabla = new Usuario();
+        $usuarios = $tabla->listarUsuarios($_SESSION['usuario_id']);
+        
+        require_once ("../Vista/header.php");
+        require_once ('../Vista/listaUsuarios.php');
+        require_once ("../Vista/footer.php");
+    }else{
+        $tabla = new Usuario();
+        $usuarios = $tabla->listarUsuarios($_SESSION['usuario_id']);
+        require_once ("../Vista/header.php");
+        require_once ('../Vista/listaUsuarios.php');
+        require_once ("../Vista/footer.php");  
+    }
 }
 
 if (isset($_REQUEST['action'])) {
