@@ -322,9 +322,13 @@ function buscarJuego(){
     if (strlen($busqueda) > 0) {
         $juego = new Juego();
         
-        $juegos = $juego->buscarJuegoTitulo($busqueda, $id);
+        $juegos = $juego->buscarJuegoTituloPlata($busqueda, $id);
         // var_dump($juegos);
         
+        require_once ("../Vista/header.php");
+        require_once ("../Vista/buscarJuego.php");
+        require_once ("../Vista/footer.php");
+    }else{
         require_once ("../Vista/buscarJuego.php");
     }
 
@@ -332,13 +336,10 @@ function buscarJuego(){
 function redirigirBuscarJuego(){
     session_start();
     $juegos = [];        
+    require_once ("../Vista/header.php");
     require_once ("../Vista/buscarJuego.php");
+    require_once ("../Vista/footer.php");
 
-}
-function salir(){
-    session_start();
-    session_destroy();
-    header("Location:../Controlador/index.php");
 }
 
 function listarUsuarios(){
@@ -359,6 +360,12 @@ function listarUsuarios(){
         require_once ('../Vista/listaUsuarios.php');
         require_once ("../Vista/footer.php");  
     }
+}
+
+function salir(){
+    session_start();
+    session_destroy();
+    header("Location:../Controlador/index.php");
 }
 
 if (isset($_REQUEST['action'])) {
