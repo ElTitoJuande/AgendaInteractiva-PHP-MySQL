@@ -96,13 +96,12 @@ class Amigo {
         return $amigo;        
     }
 
-    //Unifico codigo?
-    // public function editarAmigoAdmin($id, $nombre, $apellidos, $fecha_nac, $usuario) {
-    //     $sentencia = "UPDATE amigos SET nombre = ?, apellidos = ?, fecha_nac = ?, usuario = ? WHERE id = ?";
-    //     $stmt = $this->conn->getConn()->prepare($sentencia);
-    //     $stmt->bind_param("ssssi", $nombre, $apellidos, $fecha_nac, $usuario, $id);
-    //     return $stmt->execute();
-    // } 
+    public function editarAmigoAdmin($id, $nombre, $apellidos, $fecha_nac, $usuario) {
+        $sentencia = "UPDATE amigos SET nombre = ?, apellidos = ?, fecha_nac = ?, usuario = ? WHERE id = ?";
+        $stmt = $this->conn->getConn()->prepare($sentencia);
+        $stmt->bind_param("sssii", $nombre, $apellidos, $fecha_nac, $usuario, $id);
+        return $stmt->execute();
+    } 
     public function editarAmigo($id, $nombre, $apellidos, $fecha_nac) {
         $sentencia = "UPDATE amigos SET nombre = ?, apellidos = ?, fecha_nac = ? WHERE id = ?";
         $stmt = $this->conn->getConn()->prepare($sentencia);

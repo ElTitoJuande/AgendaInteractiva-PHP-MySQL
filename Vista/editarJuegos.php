@@ -84,9 +84,6 @@ if (isset($_SESSION['usuario_id'])) {
                     <label for="img">Imagen:</label>
                     <input type="text" name="img" value="<?= $juegoDatos["img"] ?>" required>
                     <br>
-                    <label for="usuario">Usuario:</label>
-                    <input type="text" name="usuario" value="<?= $juegoDatos["usuario"] ?>" required>
-                    <br>
                     <button type="submit">Editar</button>
                 </form>
                 <form action="../Controlador/index.php?action=volverListaJuegos" method="post">

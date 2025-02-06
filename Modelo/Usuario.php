@@ -75,23 +75,17 @@ class Usuario {
         return $fila['count'] > 0;
     }
 
-    public static function listarUsuarios() {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $query = "SELECT id, nombre, tipo FROM usuarios";
-        $resultado = $conn->query($query);
-        
-        $usuarios = [];
-        while ($fila = $resultado->fetch_object()) {
-            $usuario = new Usuario();
-            $usuario->id = $fila->id;
-            $usuario->nombre = $fila->nombre;
-            $usuario->tipo = $fila->tipo;
-            $usuarios[] = $usuario;
+    public function listarUsuarios() {
+        $sentencia="SELECT id, nombre, tipo FROM usuarios";
+        $stmt = $this->conn->getConn()->prepare($sentencia);
+        $stmt->bind_result($id, $nombre, $tipo);
+        $usuarios=array();
+        $stmt->execute();
+        while ($stmt->fetch()) {
+            $usuarios[] = array("id" => $id,"nombre" => $nombre, "tipo" => $tipo);
         }
-        
-        $conn->close();
+
+        $stmt -> close();
         
         return $usuarios;
     }

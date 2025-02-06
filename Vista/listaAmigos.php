@@ -46,6 +46,7 @@ if (isset($_SESSION['usuario_id'])) {
                             <td> 
                             <form action="index.php?action=editarAmigoAdmin" method="post">
                                 <input type="hidden" name="id" value="<?= $amigo["id"] ?>">
+                                <input type="hidden" name="nombreUsu" value="<?=$amigo["usuario"]?>">
                                 <input type="submit" class="btn" value="Editar">
                             </form>
                             </td>

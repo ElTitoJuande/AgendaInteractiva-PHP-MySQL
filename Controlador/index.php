@@ -19,15 +19,15 @@ function login() {
             $_SESSION['usuario_id'] = $usuario->autenticarUsuario($nombre, $contrasena);
             header('Location: index.php?action=dashboard');
         }else{
-            require_once ("../HeaderFooter/header.html");
+            require_once ("../Vista/header.php");
             require_once ("../Vista/login.php");
-            require_once ("../HeaderFooter/footer.html");
+            require_once ("../Vista/footer.php");
         }
     }else{
 
-            require_once ("../HeaderFooter/header.html");
+            require_once ("../Vista/header.php");
             require_once ("../Vista/login.php");
-            require_once ("../HeaderFooter/footer.html");
+            require_once ("../Vista/footer.php");
     }
 }
 function actualizarAmigo(){
@@ -36,7 +36,6 @@ function actualizarAmigo(){
     $nombre = $_POST['nombre'];
     $apellidos = $_POST['apellidos'];
     $fecha_nac = $_POST['fecha_nac'];
-    // $usuario = $_SESSION['usuario_id'];
 
     $amigo = new Amigo();
     
@@ -49,11 +48,37 @@ function actualizarAmigo(){
         header('Location: index.php?action=dashboard');
     } else {
         echo "Error al actualizar el amigo.";
-        require_once ("../HeaderFooter/header.html");
+        require_once ("../Vista/header.php");
         require_once ("../Vista/editarAmigo.php");
-        require_once ("../HeaderFooter/footer.html");
+        require_once ("../Vista/footer.php");
     }
 }
+function actualizarAmigoAdmin(){
+    session_start();    
+    $id = $_POST['id_amigo'];
+    $nombre = $_POST['nombre'];
+    $apellidos = $_POST['apellidos'];
+    $fecha_nac = $_POST['fecha_nac'];
+    $usuario = $_POST['id'];
+
+
+    $amigo = new Amigo();
+    
+    $amigos = $amigo->editarAmigoAdmin($id, $nombre, $apellidos, $fecha_nac, $usuario);
+    var_dump($amigos);
+
+
+    if ($amigos) {
+        echo "Amigo actualizado correctamente.";
+        header('Location: index.php?action=dashboard');
+    } else {
+        echo "Error al actualizar el amigo.";
+        require_once ("../Vista/header.php");
+        require_once ("../Vista/editarAmigo.php");
+        require_once ("../Vista/footer.php");
+    }
+}
+
 function volverListaAmigos(){
     session_start();
     header('Location: index.php?action=dashboard');
@@ -109,9 +134,9 @@ function agregarAmigoAdmin() {
         header('Location: index.php?action=dashboard');
     } else {
         echo "Error al agregar el amigo.";
-        require_once ("../HeaderFooter/header.html");
+        require_once ("../Vista/header.php");
         require_once ("../Vista/nuevoAmigo.php");
-        require_once ("../HeaderFooter/footer.html");
+        require_once ("../Vista/footer.php");
     }
     // dashboard();
 }
@@ -131,24 +156,27 @@ function agregarAmigo(){
         header('Location: index.php?action=dashboard');
     } else {
         echo "Error al agregar el amigo.";
-        require_once ("../HeaderFooter/header.html");
+        require_once ("../Vista/header.php");
         require_once ("../Vista/nuevoAmigo.php");
-        require_once ("../HeaderFooter/footer.html");
+        require_once ("../Vista/footer.php");
     }
 }
 function editarAmigoAdmin(){
     session_start();
     
     $id = $_POST['id'];
-    
-    $amigoClass = new Amigo();
-    $amigo = $amigoClass->buscarAmigoPorIdAdmin($id);
-    var_dump($amigo);
+    // $nombre = $_POST['nombreUsu'];
+    $usuario = new Usuario();
+    $usuarios = $usuario->listarUsuarios();
+    // var_dump($usuarios);
 
-    // header('Location: index.php?action=editarAmigo&amigo=' . $amigo);
-    require_once ("../HeaderFooter/header.html");
+    $amigoClass = new Amigo();
+    $amigos = $amigoClass->buscarAmigoPorIdAdmin($id);
+    // var_dump($amigo);
+
+    require_once ("../Vista/header.php");
     require_once ("../Vista/editarAmigo.php");
-    require_once ("../HeaderFooter/footer.html");
+    require_once ("../Vista/footer.php");
 
 }
 function editarAmigo(){
@@ -159,6 +187,8 @@ function editarAmigo(){
     $amigoClass = new Amigo();
 
     $amigo = $amigoClass->buscarAmigoPorId($id);
+
+    $usuarios = $amigoClass->listarAmigos($usuario);
 
     // header('Location: index.php?action=editarAmigo&amigo=' . $amigo);
     require_once ("../Vista/editarAmigo.php");
@@ -185,15 +215,15 @@ function dashboard() {
         $tabla = new Amigo();
         $amigos = $tabla->listarAmigos($_SESSION['usuario_id']);
     
-        require_once ("../HeaderFooter/header.html");
+        require_once ("../Vista/header.php");
         require_once '../Vista/listaAmigos.php';
-        require_once ("../HeaderFooter/footer.html");
+        require_once ("../Vista/footer.php");
     }else{
         $tabla = new Amigo();
         $amigos = $tabla->listarAmigosPorUsuario($_SESSION['usuario_id']);
-        require_once ("../HeaderFooter/header.html");
+        require_once ("../Vista/header.php");
         require_once '../Vista/listaAmigos.php';  
-        require_once ("../HeaderFooter/footer.html");  
+        require_once ("../Vista/footer.php");  
     }
 }
 function listarJuegos(){
@@ -204,15 +234,15 @@ function listarJuegos(){
         $tabla = new Juego();
         $juegos = $tabla->listarJuegos($_SESSION['usuario_id']);
         
-        require_once ("../HeaderFooter/header.html");
+        require_once ("../Vista/header.php");
         require_once ('../Vista/listaJuegos.php');
-        require_once ("../HeaderFooter/footer.html");
+        require_once ("../Vista/footer.php");
     }else{
         $tabla = new Juego();
         $juegos = $tabla->listarJuegos($_SESSION['usuario_id']);
-        require_once ("../HeaderFooter/header.html");
+        require_once ("../Vista/header.php");
         require_once ('../Vista/listaJuegos.php');
-        require_once ("../HeaderFooter/footer.html");  
+        require_once ("../Vista/footer.php");  
     }
 }
 function editarJuegos(){
@@ -250,9 +280,9 @@ function actualizarJuego(){
         header('Location: index.php?action=listarJuegos');
     } else {
         echo "Error al actualizar el juego.";
-        require_once ("../HeaderFooter/header.html");
+        require_once ("../Vista/header.php");
         require_once ("../Vista/editarJuegos.php");
-        require_once ("../HeaderFooter/footer.html");
+        require_once ("../Vista/footer.php");
     } 
     
 }
