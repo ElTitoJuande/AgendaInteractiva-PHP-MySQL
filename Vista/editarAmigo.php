@@ -6,10 +6,6 @@ if (isset($_SESSION['usuario_id'])) {
     // Verifica si el usuario es administrador
     if (strcmp($_SESSION["tipo"], "admin") == 0) {
 
-        // $amigo = new Amigo();
-        // $amigo->id = $_POST['id'];
-        // $amigoDatos = $amigo->buscarAmigoPorId($amigo->id);
-
         ?>
         <!DOCTYPE html>
         <html lang="es">
@@ -57,11 +53,6 @@ if (isset($_SESSION['usuario_id'])) {
         // Vista de editar amigo para usuarios normales
         // var_dump($_POST['id']);
 
-        $amigo = new Amigo();
-        $amigo->id = $_POST['id'];
-        // $amigo->buscarAmigoPorId($id);
-        $amigoDatos = $amigo->buscarAmigoPorId($amigo->id);
-
         ?>
         <!DOCTYPE html>
         <html lang="es">
@@ -75,15 +66,15 @@ if (isset($_SESSION['usuario_id'])) {
                 <h1>Editar Amigo</h1>
                 
                 <form action="index.php?action=actualizarAmigo" method="post">
-                    <input type="hidden" name="id" value="<?= $amigoDatos["id"] ?>">
+                    <input type="hidden" name="id" value="<?= $amigos["id"] ?>">
                     <label for="nombre">Nombre:</label>
-                    <input type="text" name="nombre" value="<?= $amigoDatos["nombre"] ?>" required>
+                    <input type="text" name="nombre" value="<?= $amigos["nombre"] ?>" required>
                     <br>
                     <label for="apellido">Apellido:</label>
-                    <input type="text" name="apellidos" value="<?= $amigoDatos["apellidos"] ?>" required>
+                    <input type="text" name="apellidos" value="<?= $amigos["apellidos"] ?>" required>
                     <br>
                     <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                    <input type="date" name="fecha_nac" value="<?= $amigoDatos["fecha_nac"] ?>" required>
+                    <input type="date" name="fecha_nac" value="<?= $amigos["fecha_nac"] ?>" required>
                     <br>
                     <button type="submit">Editar</button>
                     </form>

@@ -192,12 +192,12 @@ function editarAmigo(){
 
     $amigoClass = new Amigo();
 
-    $amigo = $amigoClass->buscarAmigoPorId($id);
-
-    $usuarios = $amigoClass->listarAmigos();
+    $amigos = $amigoClass->buscarAmigoPorId($id);
 
     // header('Location: index.php?action=editarAmigo&amigo=' . $amigo);
+    require_once ("../Vista/header.php");
     require_once ("../Vista/editarAmigo.php");
+    require_once ("../Vista/footer.php");
 
 }
 function dashboard() {
@@ -256,9 +256,11 @@ function editarJuegos(){
     $id = $_POST['id'];
     
     $juegoClass = new Juego();
-    $juego = $juegoClass->buscarJuegoPorId($id);
+    $juegos = $juegoClass->buscarJuegoPorId($id);
     // var_dump($juego);
+    require_once ("../Vista/header.php");
     require_once ("../Vista/editarJuegos.php");
+    require_once ("../Vista/footer.php");
 }
 function volverListaJuegos(){
     session_start();
@@ -271,7 +273,6 @@ function actualizarJuego(){
     $plataforma = $_POST['plataforma'];
     $lanzamiento = $_POST['lanzamiento'];
     $img = $_POST['img'];
-    $usuario = $_SESSION['usuario_id'];
 
     $juego = new Juego();
     
@@ -288,6 +289,29 @@ function actualizarJuego(){
         require_once ("../Vista/editarJuegos.php");
         require_once ("../Vista/footer.php");
     } 
+
+    ///////
+    // session_start();    
+    // $id = $_POST['id'];
+    // $nombre = $_POST['nombre'];
+    // $apellidos = $_POST['apellidos'];
+    // $fecha_nac = $_POST['fecha_nac'];
+
+    // $amigo = new Amigo();
+    
+    // $amigos = $amigo->editarAmigo($id, $nombre, $apellidos, $fecha_nac);
+    // var_dump($amigos);
+
+
+    // if ($amigos) {
+    //     echo "Amigo actualizado correctamente.";
+    //     header('Location: index.php?action=dashboard');
+    // } else {
+    //     echo "Error al actualizar el amigo.";
+    //     require_once ("../Vista/header.php");
+    //     require_once ("../Vista/editarAmigo.php");
+    //     require_once ("../Vista/footer.php");
+    // }
     
 }
 function buscarJuego(){

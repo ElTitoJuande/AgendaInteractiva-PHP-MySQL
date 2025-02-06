@@ -64,7 +64,7 @@ class Juego {
     }
 
     //ver si tengo que pasarle id de la session o del usuario
-    public function editarJuego($titulo, $plataforma, $lanzamiento, $img, $id){
+    public function editarJuego($id, $titulo, $plataforma, $lanzamiento, $img){
         $sentencia = "UPDATE juegos SET titulo = ?, plataforma = ?, lanzamiento = ?, img = ? WHERE id = ?";
         $stmt = $this->conn->getConn()->prepare($sentencia);
         $stmt->bind_param("ssssi", $titulo, $plataforma, $lanzamiento, $img, $id);
