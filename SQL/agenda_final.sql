@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 27-01-2025 a las 12:52:51
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 07-02-2025 a las 01:29:30
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,12 +40,16 @@ CREATE TABLE `amigos` (
 --
 
 INSERT INTO `amigos` (`id`, `nombre`, `apellidos`, `fecha_nac`, `usuario`) VALUES
-(1, 'Angel', 'Lopez', '2001-05-31', 1),
+(1, 'bbbbbbb', 'bbb', '2012-12-12', 1),
 (2, 'Antonio', 'Roldan', '1999-01-14', 4),
-(3, 'Pablo', 'Saenz', '2002-11-16', 1),
-(4, 'Juanfran', 'Pacho', '2003-01-10', 2),
-(5, 'Ana', 'Maite', '2004-12-21', 2),
-(6, 'Alejandro', 'Aguayo', '2002-10-14', 2);
+(3, 'Senior', 'Saenz', '2002-11-16', 1),
+(4, 'Pacho', 'Rodriguez', '2003-01-10', 4),
+(5, 'Ana', 'Maite', '2004-12-21', 4),
+(6, 'Alejandro', 'Aguayo', '2002-10-14', 1),
+(7, 'Fernando', 'Benitez', '2001-03-20', 4),
+(8, 'Aaaaaaaaaa', 'asdfasdf', '2025-02-03', 4),
+(9, 'Angel', 'Arevalo', '2011-11-11', 3),
+(10, 'Angel', 'ElOreon', '2011-11-11', 4),
 
 -- --------------------------------------------------------
 
@@ -67,9 +71,12 @@ CREATE TABLE `juegos` (
 --
 
 INSERT INTO `juegos` (`id`, `titulo`, `plataforma`, `lanzamiento`, `img`, `usuario`) VALUES
-(1, 'Fornite', 'PC', '2017', 'luego', 1),
-(2, 'Minecraft', 'PC', '2009', 'luego', 4),
-(3, 'EAFC25', 'PS4', '2024', 'luego', 1);
+(1, 'Fortnite', 'PC', '2017', 'fortnite.jpg', 4),
+(2, 'Minecraft', 'PC', '2009', 'minecraft.jpg', 4),
+(3, 'EAFC25', 'PlayStation 4', '2024', 'eafc25.jpg', 4),
+(4, 'The Legend of Zelda: Tears of the Kingdom', 'Nintendo Switch', '2023', 'zelda.jpg', 4),
+(5, 'God of War', 'PlayStation 4', '2018', 'godOfWar.jpg', 4),
+(6, 'Red Dead Redemption 2', 'PlayStation 4', '2018', 'rdr2.jpg', 4);
 
 -- --------------------------------------------------------
 
@@ -113,7 +120,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `nombre`, `contrasena`, `tipo`) VALUES
 (1, 'Erica', '123456', 'usuario'),
-(2, 'Juande', '123456', 'usuario'),
+(2, 'Juande', '123456', 'admin'),
 (3, 'Redouan', '123465', 'usuario'),
 (4, 'Fran', '123456', 'usuario');
 
@@ -162,13 +169,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `amigos`
 --
 ALTER TABLE `amigos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `juegos`
 --
 ALTER TABLE `juegos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
