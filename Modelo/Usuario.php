@@ -16,6 +16,51 @@ class Usuario {
         $this->tipo;
     }
 
+    public function listarUsuarios() {
+        $sentencia="SELECT id, nombre, contrasena, tipo FROM usuarios";
+        $stmt = $this->conn->getConn()->prepare($sentencia);
+        $stmt->bind_result($id, $nombre, $contrasena, $tipo);
+        $usuarios=array();
+        $stmt->execute();
+        while ($stmt->fetch()) {
+            $usuarios[] = array("id" => $id,"nombre" => $nombre, "contrasena" => $contrasena, "tipo" => $tipo);
+        }
+
+        $stmt -> close();
+        
+        return $usuarios;
+    }
+
+    public function buscarUsuarioPorIdAdmin($id) {
+        $stmt = $this->conn->getConn()->prepare("SELECT id, nombre, contrasena, tipo FROM usuarios WHERE id = ?");
+        $stmt->bind_param("i", $id);  
+        $stmt->bind_result($id, $nombre, $contrasena, $tipo);
+        $stmt->execute();
+        $stmt->fetch();
+        $usuarios = array("id" => $id,"nombre" => $nombre, "contrasena" => $contrasena, "tipo" => $tipo);
+        
+        $stmt->close();
+        return $usuarios;
+    }
+
+    public function editarUsuario($id, $nombre, $contrasena, $tipo) {
+
+        $stmt = $this->conn->getConn()->prepare("UPDATE usuarios SET nombre = ?, contrasena = ?, tipo = ? WHERE id = ?");
+        $stmt->bind_param("sssi", $nombre, $contrasena, $tipo, $id);
+        $stmt->execute();
+
+        if($stmt->affected_rows > 0) return true;
+        else return false;
+    }
+    public function agregarUsuario($nombre, $contrasena) {
+        $stmt = $this->conn->getConn()->prepare("INSERT INTO usuarios (nombre, contrasena, tipo) VALUES (?, ?, 'usuario')");
+        $stmt->bind_param("ss", $nombre, $contrasena);        
+        $stmt->execute();
+
+        if($stmt->affected_rows > 0) return true;
+        else return false;
+    }
+
     public function autenticarUsuario($nombre, $contrasena) {
                
         $stmt = $this->conn->getConn()->prepare("SELECT id FROM usuarios WHERE nombre = ? AND contrasena = ?");
@@ -75,20 +120,7 @@ class Usuario {
         return $fila['count'] > 0;
     }
 
-    public function listarUsuarios() {
-        $sentencia="SELECT id, nombre, tipo FROM usuarios";
-        $stmt = $this->conn->getConn()->prepare($sentencia);
-        $stmt->bind_result($id, $nombre, $tipo);
-        $usuarios=array();
-        $stmt->execute();
-        while ($stmt->fetch()) {
-            $usuarios[] = array("id" => $id,"nombre" => $nombre, "tipo" => $tipo);
-        }
-
-        $stmt -> close();
-        
-        return $usuarios;
-    }
+    
 
     public function actualizarUsuario() {
         $db = new db();

@@ -1,5 +1,4 @@
  <?php
-        session_start();
 // Verifica si el usuario tiene una sesión iniciada
 // var_dump($_SESSION['usuario_id']);
 if (isset($_SESSION['usuario_id'])) {
@@ -32,6 +31,16 @@ if (isset($_SESSION['usuario_id'])) {
                         <label for="fecha_nac">Fecha de Nacimiento:</label>
                         <input type="date" id="fecha_nac" name="fecha_nac" required>
                     </div>
+                    <label for="id">Selecciona dueño:</label>
+                    <select name="usuario_id">
+                        <?php
+                        foreach ($usuarios as $usuario) {
+                        ?>
+                            <option value="<?= $usuario["id"] ?>"><?= $usuario["nombre"] ?></option>
+                       <?php 
+                            }
+                        ?>
+                    </select>
                     <button type="submit" class="btn">Guardar Amigo</button>
                 </form>
                 <form action="../Controlador/index.php?action=volverListaAmigos" method="post">

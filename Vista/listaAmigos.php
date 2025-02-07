@@ -25,7 +25,7 @@ if (isset($_SESSION['usuario_id'])) {
                     <form action="index.php?action=redirigirBuscarAmigoAdmin" method="post">
                          <button type="submit">Buscar</button>
                      </form>
-                    <a href="../Vista/nuevoAmigo.php">Añadir nuevo amigo</a>
+                    <a href="../Controlador/index.php?action=redirigirNuevoAmigo">Añadir nuevo amigo</a>
                 </div>
 
                 <table>
