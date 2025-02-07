@@ -1,3 +1,12 @@
+/* Paleta de colores 
+
+$white: rgba(255, 255, 255, 1);
+$dim-gray: rgba(115, 116, 120, 1);
+$earth-yellow: rgba(238, 188, 119, 1);
+$butterscotch: rgba(239, 155, 73, 1);
+
+*/
+
 /* Estilos generales */
 body {
     font-family: Arial, sans-serif;
@@ -5,13 +14,38 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
-
     height: 100vh;
     display: grid;
     grid-template-rows: min-content auto min-content;
 }
+header{
+    display: flex;
+    background-color: rgba(115, 116, 120, 1);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    max-height: 7vh;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    img{
+        width: 150px;
+    }
+}
+#menu{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 50%;
+    background-color: rgba(115, 116, 120, 1);
+    color: white;
+    div{
+        display: flex;
+    }
+    
+}
 
 main {
+    padding: 20px 0 20px 0;
     height: 100%;
     overflow-y: auto;
 }

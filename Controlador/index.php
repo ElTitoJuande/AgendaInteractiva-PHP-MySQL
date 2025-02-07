@@ -235,6 +235,24 @@ function editarAmigoAdmin(){
     require_once ("../Vista/footer.php");
     
 }
+function editarAmigo(){
+    session_start();
+    
+    $id = $_POST['id'];
+    // $nombre = $_POST['nombreUsu'];
+    $usuario = new Usuario();
+    $usuarios = $usuario->listarUsuarios();
+    // var_dump($usuarios);
+    
+    $amigoClass = new Amigo();
+    $amigos = $amigoClass->buscarAmigoPorIdAdmin($id);
+    // var_dump($amigo);
+    
+    require_once ("../Vista/header.php");
+    require_once ("../Vista/editarAmigo.php");
+    require_once ("../Vista/footer.php");
+    
+}
 function listarJuegos(){
     session_start();
     // var_dump($_SESSION["tipo"]);
