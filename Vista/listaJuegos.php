@@ -20,7 +20,7 @@
                 <tr>
                     <th>Título</th>
                     <th>Plataforma</th>
-                    <th>Año</th>
+                    <th>Lanzamiento</th>
                     <th>Imagen</th>
                     <th>Acciones</th>
                 </tr>
@@ -45,5 +45,5 @@
     </div>
 </body>
 </html>
-        
+
 </main

@@ -107,7 +107,6 @@ class Amigo {
         return $amigos;        
     }
     
-
     public function editarAmigoAdmin($id, $nombre, $apellidos, $fecha_nac, $usuario) {
         $sentencia = "UPDATE amigos SET nombre = ?, apellidos = ?, fecha_nac = ?, usuario = ? WHERE id = ?";
         $stmt = $this->conn->getConn()->prepare($sentencia);

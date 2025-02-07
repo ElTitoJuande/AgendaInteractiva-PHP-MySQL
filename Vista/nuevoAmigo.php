@@ -1,7 +1,7 @@
  <?php
-             session_start();
+        session_start();
 // Verifica si el usuario tiene una sesión iniciada
-var_dump($_SESSION['usuario_id']);
+// var_dump($_SESSION['usuario_id']);
 if (isset($_SESSION['usuario_id'])) {
     
     // Verifica si el usuario es administrador

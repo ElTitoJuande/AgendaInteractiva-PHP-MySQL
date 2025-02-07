@@ -24,7 +24,7 @@
                     <tr>
                         <th>Título</th>
                         <th>Plataforma</th>
-                        <th>Año</th>
+                        <th>lanzamiento</th>
                         <th>Imagen</th>
                         <th>Acciones</th>
                     </tr>

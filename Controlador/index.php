@@ -342,6 +342,31 @@ function redirigirBuscarJuego(){
 
 }
 
+function agregarJuego(){
+    session_start();
+    $titulo = $_POST['titulo'];
+    $plataforma = $_POST['plataforma'];
+    $lanzamiento = $_POST['lanzamiento'];
+    var_dump($lanzamiento); 
+
+    $img = $_POST['img'];
+    $usuario = $_SESSION['usuario_id'];
+
+    $juego = new Juego();
+
+    $juegos = $juego->agregarJuego($titulo, $plataforma, $lanzamiento, $img, $usuario);
+
+    if ($juegos) {
+        echo "Juego agregado correctamente.";
+        header('Location: index.php?action=listarJuegos');
+    } else {
+        echo "Error al agregar el juego.";
+        require_once ("../Vista/header.php");
+        require_once ("../Vista/nuevoJuego.php");
+        require_once ("../Vista/footer.php");
+    }
+}
+
 function listarUsuarios(){
     session_start();
     // var_dump($_SESSION["tipo"]);

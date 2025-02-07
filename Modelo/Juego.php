@@ -74,10 +74,11 @@ class Juego {
     }
 
     //ver si tengo que pasarle id de la session o del usuario
-    public function agregarJuego(){
-        $sentencia = "INSERT INTO juegos (titulo, plataforma, lanzamiento, img) VALUES (?, ?, ?, ?, ?)";
+    public function agregarJuego($titulo, $plataforma, $lanzamiento, $img, $usuario){
+        var_dump($lanzamiento); 
+        $sentencia = "INSERT INTO juegos (titulo, plataforma, lanzamiento, img) VALUES (?, ?, ?, ?)";
         $stmt = $this->conn->getConn()->prepare($sentencia);
-        $stmt->bind_param("ssssi", $this->titulo, $this->plataforma, $this->lanzamiento, $this->img);
+        $stmt->bind_param("sssi", $titulo, $plataforma, $lanzamiento, $img);
         return $stmt->execute();
     }
 
