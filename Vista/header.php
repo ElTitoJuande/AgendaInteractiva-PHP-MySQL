@@ -11,9 +11,6 @@
         <div>
             <img src="../img/logo1.png" alt="">
         </div>
-        <div>
-            
-        </div>
         <?php
     if(isset($_REQUEST['action'])) {
         $action = strtolower( $_REQUEST['action']);

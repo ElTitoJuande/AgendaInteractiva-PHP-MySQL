@@ -1,11 +1,8 @@
-/* Paleta de colores 
-
-$white: rgba(255, 255, 255, 1);
+/* Paleta de colores */
+/* $white: rgba(255, 255, 255, 1);
 $dim-gray: rgba(115, 116, 120, 1);
 $earth-yellow: rgba(238, 188, 119, 1);
-$butterscotch: rgba(239, 155, 73, 1);
-
-*/
+$butterscotch: rgba(239, 155, 73, 1); */
 
 /* Estilos generales */
 body {
@@ -17,49 +14,109 @@ body {
     height: 100vh;
     display: grid;
     grid-template-rows: min-content auto min-content;
-}
-header{
-    display: flex;
-    background-color: rgba(115, 116, 120, 1);
-    color: white;
-    padding: 20px;
-    text-align: center;
-    max-height: 7vh;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    img{
-        width: 150px;
-    }
-}
-#menu{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    width: 50%;
-    background-color: rgba(115, 116, 120, 1);
-    color: white;
-    div{
-        display: flex;
-    }
-    
+    /* justify-content: center; */
 }
 
+/* HEADER */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(115, 116, 120, 1);
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+}
+
+/* Logo */
+header img {
+    width: 150px;
+    height: auto;
+}
+
+/* Menú */
+#menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Título del menú */
+#menu h3 {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Estilos de la navegación */
+#menu ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    font-size: 1rem;
+    position: relative;
+}
+
+/* Efecto de subrayado animado */
+#menu ul:before {
+    content: "";
+    position: absolute;
+    position-anchor: --li;
+    inset: auto anchor(right) anchor(bottom) anchor(left);
+    background: rgba(238, 188, 119, 1);
+    height: 0.2em;
+    transition: 0.2s 0.2s;
+}
+
+/* Estilos de los elementos del menú */
+#menu ul li {
+    background: conic-gradient(rgba(238, 188, 119, 1) 0 0) bottom/100% 0% no-repeat;
+    transition: 0.2s;
+}
+
+/* Hover y activo */
+#menu ul li:is(:hover, .active) {
+    anchor-name: --li;
+    background-size: 100% 100%;
+    transition: 0.2s 0.4s;
+}
+
+#menu ul:has(li:hover) li.active:not(:hover) {
+    anchor-name: none;
+    background-size: 100% 0%;
+    transition: 0.2s;
+}
+
+/* Estilos de los enlaces */
+#menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5em 1em;
+    display: block;
+}
+
+/* MAIN */
 main {
-    padding: 20px 0 20px 0;
+    padding: 20px 0;
     height: 100%;
     overflow-y: auto;
 }
 
+/* Contenedor principal */
 .container {
     width: 80%;
     margin: auto;
     overflow: hidden;
     padding: 20px;
     background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 
-/* Tablas */
+/* TABLAS */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -77,7 +134,7 @@ table th {
     background-color: #f2f2f2;
 }
 
-/* Formularios */
+/* FORMULARIOS */
 .form-grupo {
     margin-bottom: 15px;
 }
@@ -94,7 +151,7 @@ table th {
     border-radius: 4px;
 }
 
-/* Botones */
+/* BOTONES */
 .btn {
     display: inline-block;
     background-color: #855f45;
@@ -112,7 +169,7 @@ table th {
     padding: 10px 15px;
 }
 
-/* Búsqueda */
+/* BÚSQUEDA */
 .busqueda {
     margin-bottom: 20px;
 }
@@ -123,6 +180,7 @@ table th {
     margin-right: 10px;
 }
 
+/* MENSAJES DE ERROR */
 .error {
     color: red;
     background-color: #ffeeee;
@@ -130,14 +188,52 @@ table th {
     margin-bottom: 15px;
 }
 
-/* Pie de página */
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #995050;
-    color: white;
-}
-
+/* IMAGENES */
 .imgJuego {
     width: 150px;
+}
+
+/* PIE DE PÁGINA */
+footer {
+    background-color: rgba(115, 116, 120, 1); /* Fondo en gris oscuro */
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+    font-size: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+/* Estilo del párrafo en el footer */
+footer p {
+    margin: 0;
+    font-weight: bold;
+}
+
+/* Estilo de la lista de navegación en el footer */
+footer .footer-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0px 10px 0 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Estilo de los elementos de la lista del footer */
+footer .footer-nav li {
+    display: inline-block;
+}
+
+/* Estilo de los enlaces en el footer */
+footer .footer-nav li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+/* Efecto hover para los enlaces */
+footer .footer-nav li a:hover {
+    color: rgba(238, 188, 119, 1); /* Color amarillo suave */
 }
