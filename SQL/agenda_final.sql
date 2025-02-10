@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-02-2025 a las 01:29:30
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Tiempo de generación: 10-02-2025 a las 13:01:21
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,16 +40,21 @@ CREATE TABLE `amigos` (
 --
 
 INSERT INTO `amigos` (`id`, `nombre`, `apellidos`, `fecha_nac`, `usuario`) VALUES
-(1, 'bbbbbbb', 'bbb', '2012-12-12', 1),
+(1, 'bbb', 'bbb', '2012-12-12', 1),
 (2, 'Antonio', 'Roldan', '1999-01-14', 4),
 (3, 'Senior', 'Saenz', '2002-11-16', 1),
 (4, 'Pacho', 'Rodriguez', '2003-01-10', 4),
 (5, 'Ana', 'Maite', '2004-12-21', 4),
-(6, 'Alejandro', 'Aguayo', '2002-10-14', 1),
+(6, 'Alejandro', 'Aguayo', '2002-10-14', 6),
 (7, 'Fernando', 'Benitez', '2001-03-20', 4),
 (8, 'Aaaaaaaaaa', 'asdfasdf', '2025-02-03', 4),
 (9, 'Angel', 'Arevalo', '2011-11-11', 3),
 (10, 'Angel', 'ElOreon', '2011-11-11', 4),
+(15, 'Alexiillo', 'tutupa', '2011-11-11', 1),
+(16, 'asdfasdfasdf', 'fdasfada', '2012-12-12', 3),
+(17, 'gggggggggggg', 'gg', '2012-12-12', 3),
+(18, 'Papote', 'Gaspar', '1939-09-10', 3),
+(19, 'Papote', 'Gaspar', '1939-09-10', 4);
 
 -- --------------------------------------------------------
 
@@ -76,7 +81,12 @@ INSERT INTO `juegos` (`id`, `titulo`, `plataforma`, `lanzamiento`, `img`, `usuar
 (3, 'EAFC25', 'PlayStation 4', '2024', 'eafc25.jpg', 4),
 (4, 'The Legend of Zelda: Tears of the Kingdom', 'Nintendo Switch', '2023', 'zelda.jpg', 4),
 (5, 'God of War', 'PlayStation 4', '2018', 'godOfWar.jpg', 4),
-(6, 'Red Dead Redemption 2', 'PlayStation 4', '2018', 'rdr2.jpg', 4);
+(6, 'Red Dead Redemption 2', 'PlayStation 4', '2018', 'rdr2.jpg', 4),
+(12, 'asdf', 'pc', '2025', 'AnotaciÃ³n 2025-02-10 111601.png', 4),
+(13, 'asdf', 'pc', '2024', 'AnotaciÃ³n 2025-02-10 111601.png', 4),
+(14, 'asdf', 'pc', '2000', 'AnotaciÃ³n 2025-02-10 111601.png', 4),
+(15, 'fdas', 'PLayStation4', '2001', 'logo1.png', 4),
+(16, 'asdfaasdf', 'pc', '2011', 'logo1.png', 4);
 
 -- --------------------------------------------------------
 
@@ -99,7 +109,8 @@ CREATE TABLE `prestamos` (
 
 INSERT INTO `prestamos` (`id`, `usuario`, `amigo`, `juego`, `fecha_prestamo`, `devuelto`) VALUES
 (1, 1, 1, 1, '2025-01-02', 0),
-(2, 1, 3, 3, '2025-01-15', 1);
+(2, 1, 3, 3, '2025-01-15', 1),
+(3, 4, 4, 2, '2001-11-11', 1);
 
 -- --------------------------------------------------------
 
@@ -122,7 +133,9 @@ INSERT INTO `usuarios` (`id`, `nombre`, `contrasena`, `tipo`) VALUES
 (1, 'Erica', '123456', 'usuario'),
 (2, 'Juande', '123456', 'admin'),
 (3, 'Redouan', '123465', 'usuario'),
-(4, 'Fran', '123456', 'usuario');
+(4, 'Fran', '123456', 'usuario'),
+(5, 'alexillo', 'tutu', 'usuario'),
+(6, 'Papote Gaspote', '123456', '');
 
 --
 -- Índices para tablas volcadas
@@ -169,25 +182,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `amigos`
 --
 ALTER TABLE `amigos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `juegos`
 --
 ALTER TABLE `juegos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Restricciones para tablas volcadas
