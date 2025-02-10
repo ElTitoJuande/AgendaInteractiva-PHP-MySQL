@@ -20,11 +20,11 @@ if (isset($_SESSION['usuario_id'])) {
                 <h1>Mis Amigos - Contactos (Administrador)</h1>
 
                 <div class="botones">
-                    <form action="index.php?action=BuscarAmigoAdmin" method="post">
+                    <form action="index.php?action=buscarAmigoAdmin" method="post">
                         <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>">
                          <button type="submit">Buscar</button>
                      </form>
-                     <a href="../Vista/nuevoAmigo.php">Añadir nuevo amigo</a>
+                     <a href="../Controlador/index.php?action=redirigirNuevoAmigo">Añadir nuevo amigo</a>
                 </div>
                 
                 <table>

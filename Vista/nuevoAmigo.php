@@ -36,12 +36,13 @@ if (isset($_SESSION['usuario_id'])) {
                     <select name="usuario_id">
                         <?php
                         foreach ($usuarios as $usuario) {
-                        ?>
+                            ?>
                             <option value="<?= $usuario["id"] ?>"><?= $usuario["nombre"] ?></option>
-                       <?php 
+                            <?php 
                             }
-                        ?>
+                            ?>
                     </select>
+                    <br>
                     <button type="submit" class="btn">Guardar Amigo</button>
                 </form>
                 <form action="../Controlador/index.php?action=volverListaAmigos" method="post">

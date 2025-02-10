@@ -20,7 +20,7 @@
                                 <h3>Agenda personal</h3>
                                 <div>
                                     <ul>
-                                        <li><a href="../Controlador/index.php?action=dashboard">AMIGOS</a></li>
+                                        <li><a href="../Controlador/index.php?action=dashboard">CONTACTOS</a></li>
                                         <li><a href="../Controlador/index.php?action=listarUsuarios">USUARIOS</a></li>
                                         <li><a href="../Controlador/index.php?action=salir">SALIR</a></li>
                                     </ul>

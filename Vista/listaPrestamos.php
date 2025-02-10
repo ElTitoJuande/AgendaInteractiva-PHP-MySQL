@@ -18,7 +18,6 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Usuario</th>
                         <th>Amigo</th>
                         <th>Juego</th>
                         <th>Fecha préstamo</th>
@@ -29,7 +28,6 @@
                 <tbody>
                     <?php foreach($prestamos as $prestamo): ?>
                     <tr>
-                        <td><?= $prestamo["usuario"] ?></td>
                         <td><?= $prestamo["amigo"] ?></td>
                         <td><?= $prestamo["juego"] ?></td>
                         <td><?= $prestamo["fecha_prestamo"] ?></td>

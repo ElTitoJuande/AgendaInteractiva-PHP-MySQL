@@ -42,6 +42,19 @@ class Usuario {
         $stmt->close();
         return $usuarios;
     }
+    public function buscarUsuarioNombre($busqueda, $id) {
+        $stmt = $this->conn->getConn()->prepare("SELECT id, nombre, contrasena, tipo FROM usuarios WHERE nombre LIKE ?");
+        $busqueda = "%$busqueda%";
+        $stmt->bind_param("s", $busqueda);  
+        $stmt->bind_result($id, $nombre, $contrasena, $tipo);
+        $stmt->execute();
+        while ($stmt->fetch()) {
+            $usuarios[] = array("id" => $id,"nombre" => $nombre, "contrasena" => $contrasena, "tipo" => $tipo);
+        }
+        
+        $stmt->close();
+        return $usuarios;
+    }
 
     public function editarUsuario($id, $nombre, $contrasena, $tipo) {
 
@@ -86,41 +99,7 @@ class Usuario {
 
         $stmt->fetch();
         return $tipo;
-    }
-    public function registrarUsuario() {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $stmt = $conn->prepare("INSERT INTO usuarios (nombre, contrasena, tipo) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $this->nombre, $this->contrasena, $this->tipo);
-        
-        $resultado = $stmt->execute();
-        $this->id = $conn->insert_id;
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $resultado;
-    }
-
-    public static function existeNombre($nombre) {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM usuarios WHERE nombre = ?");
-        $stmt->bind_param("s", $nombre);
-        $stmt->execute();
-        
-        $resultado = $stmt->get_result();
-        $fila = $resultado->fetch_assoc();
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $fila['count'] > 0;
-    }
-
-    
+    }   
 
     public function actualizarUsuario() {
         $db = new db();
@@ -137,44 +116,5 @@ class Usuario {
         return $resultado;
     }
 
-    public function eliminarUsuario() {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ?");
-        $stmt->bind_param("i", $this->id);
-        
-        $resultado = $stmt->execute();
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $resultado;
-    }
-
-    public static function buscarPorId($id) {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $stmt = $conn->prepare("SELECT * FROM usuarios WHERE id = ?");
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        
-        $resultado = $stmt->get_result();
-        $usuario = null;
-        
-        if ($fila = $resultado->fetch_object()) {
-            $usuario = new Usuario();
-            $usuario->id = $fila->id;
-            $usuario->nombre = $fila->nombre;
-            $usuario->contrasena = $fila->contrasena;
-            $usuario->tipo = $fila->tipo;
-        }
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $usuario;
-    }
 }
 ?>

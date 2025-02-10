@@ -13,19 +13,19 @@ if (isset($_SESSION['usuario_id'])) {
         <html lang="es">
         <head>
             <meta charset="UTF-8">
-            <title>Gestión de Amigos (Administrador)</title>
+            <title>Gestión de Contactos (Administrador)</title>
             <link rel="stylesheet" href="../css/style.css">
         </head>
         <body>
             <div class="container">
-                <h1>Mis Amigos - Contactos (Administrador)</h1>
+                <h1>Mis Contactos</h1>
 
                 <div class="botones">
                     <!-- <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>"> -->
                     <form action="index.php?action=redirigirBuscarAmigoAdmin" method="post">
                          <button type="submit">Buscar</button>
                      </form>
-                    <a href="../Controlador/index.php?action=redirigirNuevoAmigo">Añadir nuevo amigo</a>
+                    <a href="../Controlador/index.php?action=redirigirNuevoAmigo">Añadir nuevo contacto</a>
                 </div>
 
                 <table>

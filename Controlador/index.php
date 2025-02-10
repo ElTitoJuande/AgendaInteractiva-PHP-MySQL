@@ -136,11 +136,12 @@ function buscarAmigo(){
         require_once ("../Vista/header.php");
         require_once ("../Vista/buscarAmigo.php");
         require_once ("../Vista/footer.php");
+    }else{
+        redirigirBuscarAmigo();
     }
 
 }
 function redirigirBuscarAmigo(){
-    session_start();
     $amigos = [];        
     require_once ("../Vista/header.php");
     require_once ("../Vista/buscarAmigo.php");
@@ -170,6 +171,8 @@ function buscarAmigoAdmin(){
         require_once ("../Vista/header.php");
         require_once ("../Vista/buscarAmigo.php");
         require_once ("../Vista/footer.php");
+    }else{
+        redirigirBuscarAmigoAdmin();
     }
 }
 function redirigirBuscarAmigoAdmin(){
@@ -294,7 +297,6 @@ function volverListaJuegos(){
     session_start();
     header('Location: index.php?action=listarJuegos');
 }
-
 function actualizarJuego(){
     session_start();   
     
@@ -335,7 +337,6 @@ function actualizarJuego(){
         require_once ("../Vista/footer.php");
     } 
 }
-
 function buscarJuego(){
     session_start();
     $busqueda = $_POST['busqueda'];
@@ -365,7 +366,6 @@ function redirigirBuscarJuego(){
     require_once ("../Vista/footer.php");
 
 }
-
 function agregarJuego(){
     session_start();
     
@@ -407,8 +407,6 @@ function agregarJuego(){
         }
     }
 }
-
-
 function redirigirNuevoJuego(){
     session_start();
     require_once ("../Vista/header.php");
@@ -440,8 +438,7 @@ function editarUsuario(){
     require_once ("../Vista/editarUsuario.php");
     require_once ("../Vista/footer.php");
 }
-
-function actualizarUsuarioAdmin(){
+function actualizarUsuario(){
     session_start();
     $id = $_POST['id_Usuario'];
     $nombre = $_POST['nombre'];
@@ -463,7 +460,6 @@ function actualizarUsuarioAdmin(){
         require_once ("../Vista/footer.php");
     }
 }
-
 function redirigirNuevoUsuario(){
     session_start();
     require_once ("../Vista/header.php");
@@ -471,7 +467,7 @@ function redirigirNuevoUsuario(){
     require_once ("../Vista/footer.php");
 }
 
-function agregarUsuarioAdmin(){
+function agregarUsuario(){
     session_start();
     $nombre = $_POST['nombre'];
     $contrasena = $_POST['contrasena'];
@@ -490,24 +486,79 @@ function agregarUsuarioAdmin(){
         require_once ("../Vista/footer.php");
     }
 }
+function buscarUsuario(){
+    session_start();
+    $busqueda = $_POST['busqueda'];
+    $id = $_SESSION['usuario_id'];
+    
+    if (strlen($busqueda) > 0) {
+        $usuario = new Usuario();
+        
+        $usuarios = $usuario->buscarUsuarioNombre($busqueda, $id);
+        // var_dump($usuarios);
+        
+        require_once ("../Vista/header.php");
+        require_once ("../Vista/buscarUsuario.php");
+        require_once ("../Vista/footer.php");
+    }else{
+        require_once ("../Vista/header.php");
+        require_once ("../Vista/buscarUsuario.php");
+        require_once ("../Vista/footer.php");
+    }
+}
+function redirigirBuscarUsuario(){
+    session_start();
+    $usuarios = [];        
+    require_once ("../Vista/header.php");
+    require_once ("../Vista/buscarUsuario.php");
+    require_once ("../Vista/footer.php");
+
+}
+
+function volverListaUsuarios(){
+    session_start();
+    header('Location: index.php?action=listarUsuarios');
+}
 
 function listarPrestamos(){
     if(session_status() == PHP_SESSION_NONE){session_start();}
-    // var_dump($_SESSION["tipo"]);
-    
-    // $tipo = new Usuario();
-    // $_SESSION["tipo"] = $tipo->identificarTipo($_SESSION['usuario_id']);
     
     $tabla = new Prestamo();
-    // var_dump($_SESSION['usuario_id']);
     $prestamos = $tabla->listaPrestamos($_SESSION['usuario_id']);
-    // var_dump($prestamos);
     
     require_once ("../Vista/header.php");
     require_once ('../Vista/listaPrestamos.php');
     require_once ("../Vista/footer.php");
 }
+function buscarPrestamo(){
+    session_start();
+    $busqueda = $_POST['busqueda'];
+    $id = $_SESSION['usuario_id'];
+    
+    if (strlen($busqueda) > 0) {
+        $prestamo = new Prestamo();
+        
+        $prestamos = $prestamo->buscarPrestamos($busqueda, $id);
+        var_dump($prestamos);
+        
+        require_once ("../Vista/header.php");
+        require_once ("../Vista/buscarPrestamo.php");
+        require_once ("../Vista/footer.php");
+    }else{
+        require_once ("../Vista/header.php");
+        require_once ("../Vista/buscarPrestamo.php");
+        require_once ("../Vista/footer.php");
+    }
+}
 
+function redirigirBuscarPrestamo(){
+    session_start();
+    $prestamos = [];        
+    require_once ("../Vista/header.php");
+    require_once ("../Vista/buscarPrestamo.php");
+    require_once ("../Vista/footer.php");
+
+}
 function salir(){
     session_start();
     session_unset();

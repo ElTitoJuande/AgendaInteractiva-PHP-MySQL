@@ -31,8 +31,6 @@ class Amigo {
         
         return $amigos;
     }
-    
-
     public function listarAmigosPorUsuario($usuarioId) {
         $sentencia = "SELECT id, nombre, apellidos, fecha_nac FROM amigos WHERE usuario = ?";
         $stmt = $this->conn->getConn()->prepare($sentencia);
@@ -127,11 +125,5 @@ class Amigo {
         return $stmt->execute();
     }
 
-    public function eliminarAmigo($id) {
-        $sentencia = "DELETE FROM amigos WHERE id = ?";
-        $stmt = $this->conn->prepare($sentencia);
-        $stmt->bind_param("i", $id);
-        return $stmt->execute();
-    }
 }
 ?>
