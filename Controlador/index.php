@@ -142,6 +142,7 @@ function buscarAmigo(){
 
 }
 function redirigirBuscarAmigo(){
+    if(session_status() == PHP_SESSION_NONE){session_start();}
     $amigos = [];        
     require_once ("../Vista/header.php");
     require_once ("../Vista/buscarAmigo.php");
