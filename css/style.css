@@ -128,6 +128,89 @@ main {
     overflow-y: auto;
 }
 
+/* Centrar el formulario en la pantalla */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    background-color: #f4f4f4;
+}
+
+/* Caja del formulario */
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    text-align: center;
+}
+
+/* Título */
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Estilo de las etiquetas */
+.login-box label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* Campos de entrada */
+.login-box input {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Estilos del checkbox */
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 40%;
+    margin-bottom: 15px;
+}
+
+/* Botón de inicio de sesión */
+.login-box button {
+    width: 100%;
+    background-color: rgba(238, 188, 119, 1);
+    /* Butterscotch */
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-box button:hover {
+    background-color: rgba(239, 155, 73, 1)
+    /* Un tono más oscuro */
+}
+
+/* Mensaje de error */
+.error-message {
+    background-color: #ffeeee;
+    color: red;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+
 /* Contenedor principal */
 .container {
     width: 80%;
@@ -143,6 +226,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+
 }
 
 table th,

@@ -8,7 +8,7 @@
 </head>
 <body>
     <header>
-                    <?php
+            <?php
             if(isset($_REQUEST['action'])) {
                 $action = strtolower( $_REQUEST['action']);
                 if(strcmp($action,"login")!==0) {
