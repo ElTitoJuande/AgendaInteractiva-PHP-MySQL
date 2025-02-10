@@ -21,36 +21,58 @@ body {
 header {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     background-color: rgba(115, 116, 120, 1);
     color: white;
     padding: 10px 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+
+    /* div {
+        display: flex;
+        justify-content: space-between;
+        width: 55%;
+    } */
 }
 
 /* Logo */
 header img {
-    width: 150px;
+    width: 100px;
     height: auto;
 }
 
-/* Menú */
 #menu {
+    display: flex;
+    justify-content: space-between;
+    width: 55%;
+}
+
+/* Menú */
+#lista {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+
 }
 
 /* Título del menú */
-#menu h3 {
-    font-size: 1.8rem;
+#lista h3 {
+    font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 10px;
+    /* overflow: hidden; */
+    /* animation: typing 2s steps(20) infinite, alternate-reverse; */
+
 }
 
+/* @keyframes typing {
+    from{
+        width: 0ch;
+    }
+} */
+
 /* Estilos de la navegación */
-#menu ul {
+#lista ul {
     padding: 0;
     margin: 0;
     list-style: none;
@@ -61,7 +83,7 @@ header img {
 }
 
 /* Efecto de subrayado animado */
-#menu ul:before {
+#lista ul:before {
     content: "";
     position: absolute;
     position-anchor: --li;
@@ -72,26 +94,26 @@ header img {
 }
 
 /* Estilos de los elementos del menú */
-#menu ul li {
+#lista ul li {
     background: conic-gradient(rgba(238, 188, 119, 1) 0 0) bottom/100% 0% no-repeat;
     transition: 0.2s;
 }
 
 /* Hover y activo */
-#menu ul li:is(:hover, .active) {
+#lista ul li:is(:hover, .active) {
     anchor-name: --li;
     background-size: 100% 100%;
     transition: 0.2s 0.4s;
 }
 
-#menu ul:has(li:hover) li.active:not(:hover) {
+#lista ul:has(li:hover) li.active:not(:hover) {
     anchor-name: none;
     background-size: 100% 0%;
     transition: 0.2s;
 }
 
 /* Estilos de los enlaces */
-#menu ul li a {
+#lista ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
@@ -195,7 +217,8 @@ table th {
 
 /* PIE DE PÁGINA */
 footer {
-    background-color: rgba(115, 116, 120, 1); /* Fondo en gris oscuro */
+    background-color: rgba(115, 116, 120, 1);
+    /* Fondo en gris oscuro */
     color: white;
     padding: 10px 0;
     text-align: center;
@@ -235,5 +258,6 @@ footer .footer-nav li a {
 
 /* Efecto hover para los enlaces */
 footer .footer-nav li a:hover {
-    color: rgba(238, 188, 119, 1); /* Color amarillo suave */
+    color: rgba(238, 188, 119, 1);
+    /* Color amarillo suave */
 }

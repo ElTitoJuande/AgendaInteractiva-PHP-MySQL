@@ -8,43 +8,46 @@
 </head>
 <body>
     <header>
-        <div>
-            <img src="../img/logo1.png" alt="">
-        </div>
-        <?php
-    if(isset($_REQUEST['action'])) {
-        $action = strtolower( $_REQUEST['action']);
-        if(strcmp($action,"login")!==0) {
-            if(strcmp($_SESSION["tipo"], "admin") == 0) {
-    ?>
-                <div id="menu">
-                    <h3>Agenda personal</h3>
-                    <div>
-                        <ul>
-                            <li><a href="../Controlador/index.php?action=dashboard">AMIGOS</a></li>
-                            <li><a href="../Controlador/index.php?action=listarUsuarios">USUARIOS</a></li>
-                            <li><a href="../Controlador/index.php?action=salir">SALIR</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <?php
-            } else {
-                ?>
-                <div id="menu">
-                    <h3>Agenda personal</h3>
-                    <div>
-                        <ul>
-                            <li><a href="../Controlador/index.php?action=dashboard">AMIGOS</a></li>
-                            <li><a href="../Controlador/index.php?action=listarJuegos">JUEGOS</a></li>
-                            <li><a href="../Controlador/index.php?action=listarPrestamos">PRESTAMOS</a></li>
-                            <li><a href="../Controlador/index.php?action=salir">SALIR</a></li>
-                        </ul>
-                    </div>
-                </div>
-            <?php
+                    <?php
+            if(isset($_REQUEST['action'])) {
+                $action = strtolower( $_REQUEST['action']);
+                if(strcmp($action,"login")!==0) {
+                    if(strcmp($_SESSION["tipo"], "admin") == 0) {
+                        ?>
+                        <div id="menu">
+                            <img src="../img/logo1.png" alt="">
+                            <div id="lista">
+                                <h3>Agenda personal</h3>
+                                <div>
+                                    <ul>
+                                        <li><a href="../Controlador/index.php?action=dashboard">AMIGOS</a></li>
+                                        <li><a href="../Controlador/index.php?action=listarUsuarios">USUARIOS</a></li>
+                                        <li><a href="../Controlador/index.php?action=salir">SALIR</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    <?php
+                    } else {
+                        ?>
+                        <div id="menu">
+                            <img src="../img/logo1.png" alt="">
+                            <div id="lista">
+                                    <h3>Agenda personal</h3>
+                                    <div>
+                                        <ul>
+                                            <li><a href="../Controlador/index.php?action=dashboard">AMIGOS</a></li>
+                                            <li><a href="../Controlador/index.php?action=listarJuegos">JUEGOS</a></li>
+                                            <li><a href="../Controlador/index.php?action=listarPrestamos">PRESTAMOS</a></li>
+                                            <li><a href="../Controlador/index.php?action=salir">SALIR</a></li>
+                                        </ul>
+                                    </div>
+                            </div>
+                        </div>
+                    <?php
+                    }
+                }
             }
-        }
-    }
-    ?>
+            ?>
 
 </header>
