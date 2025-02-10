@@ -16,7 +16,7 @@
             <input type="password" id="contrasena" name="contrasena" required>
 
             <div class="remember-me">
-                <input type="checkbox" id="recuerdame" name="recuerdame" value="1">
+                <input type="checkbox" id="recuerdame" name="recuerdame" value="1" <?= isset($_COOKIE["recuerdame"]) ? 'checked' : '' ?>>
                 <label for="recuerdame">Recuérdame</label>
             </div>
 

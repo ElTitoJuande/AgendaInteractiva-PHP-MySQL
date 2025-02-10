@@ -1,4 +1,5 @@
- <?php
+<main>
+<?php
 // Verifica si el usuario tiene una sesión iniciada
 // var_dump($_SESSION['usuario_id']);
 if (isset($_SESSION['usuario_id'])) {
@@ -93,3 +94,4 @@ if (isset($_SESSION['usuario_id'])) {
     }
 }
 ?>
+</main>

@@ -10,7 +10,7 @@
         <div class="container">
             <h1>Editar Juego</h1>
             
-            <form action="index.php?action=actualizarJuego" method="post">
+            <form action="index.php?action=actualizarJuego" method="post" enctype='multipart/form-data'>
                 <input type="hidden" name="id" value="<?= $juegos["id"] ?>">
                 <label for="nombre">Título:</label>
                 <input type="text" name="titulo" value="<?= $juegos["titulo"] ?>" required>
@@ -22,7 +22,7 @@
                 <input type="input" name="lanzamiento" value="<?= $juegos["lanzamiento"] ?>" required>
                 <br>
                 <label for="img">Imagen:</label>
-                <input type="text" name="img" value="<?= $juegos["img"] ?>" required>
+                <input type="file" name="img" value="<?= $juegos["img"] ?>" required>
                 <br>
                 <button type="submit">Editar</button>
             </form>

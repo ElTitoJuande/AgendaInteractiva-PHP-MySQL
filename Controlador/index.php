@@ -5,8 +5,8 @@
 // Cargar los modelos
 require_once '../Modelo/Amigo.php';
 require_once '../Modelo/Juego.php';
-require_once '../Modelo/Prestamo.php';
 require_once '../Modelo/Usuario.php';
+require_once '../Modelo/Prestamo.php';
 
 function login() {
   
@@ -20,6 +20,12 @@ function login() {
         if ($usuario->autenticarUsuario($nombre, $contrasena)!=null) {
             session_start();
             $_SESSION['usuario_id'] = $usuario->autenticarUsuario($nombre, $contrasena);
+
+            if (isset($_POST['recuerdame']) && $_POST['recuerdame'] == 1) {
+                setcookie("usuario", $nombre, time()  + (86400 * 30));
+                setcookie("recuerdame", 1, time()  + (86400 * 30));
+            }
+
             header('Location: index.php?action=dashboard');
         }else{
             require_once ("../Vista/header.php");
@@ -288,31 +294,48 @@ function volverListaJuegos(){
     session_start();
     header('Location: index.php?action=listarJuegos');
 }
+
 function actualizarJuego(){
     session_start();   
+    
+    if (!isset($_SESSION["usuario_id"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+    
     $id = $_POST['id'];
     $titulo = $_POST['titulo'];
     $plataforma = $_POST['plataforma'];
     $lanzamiento = $_POST['lanzamiento'];
-    $img = $_POST['img'];
-
-    $juego = new Juego();
     
-    $juegos = $juego->editarJuego($id, $titulo, $plataforma, $lanzamiento, $img);
+    $nombre_archivo = "";
+    
+    if (isset($_FILES["img"]) && $_FILES["img"]["error"] == UPLOAD_ERR_OK) {
+        $nombre_archivo = basename($_FILES["img"]["name"]);
+        $ruta_archivo = "../img/" . $nombre_archivo;
+        
+        if (!move_uploaded_file($_FILES["img"]["tmp_name"], $ruta_archivo)) {
+            echo "Error al mover el archivo.";
+            exit;
+        }
+    }
+    
+    $juego = new Juego();
+    $juegos = $juego->editarJuego($id, $titulo, $plataforma, $lanzamiento, $nombre_archivo);
     var_dump($juegos);
-
-
+    
     if ($juegos) {
         echo "Juego actualizado correctamente.";
         header('Location: index.php?action=listarJuegos');
+        exit;
     } else {
         echo "Error al actualizar el juego.";
         require_once ("../Vista/header.php");
         require_once ("../Vista/editarJuegos.php");
         require_once ("../Vista/footer.php");
     } 
-    
 }
+
 function buscarJuego(){
     session_start();
     $busqueda = $_POST['busqueda'];
@@ -342,31 +365,56 @@ function redirigirBuscarJuego(){
     require_once ("../Vista/footer.php");
 
 }
+
 function agregarJuego(){
     session_start();
-    $titulo = $_POST['titulo'];
-    $plataforma = $_POST['plataforma'];
-    $lanzamiento = $_POST['lanzamiento'];
-    var_dump($lanzamiento); 
-
-    $img = $_POST['img'];
-    $usuario = $_SESSION['usuario_id'];
-
-    $juego = new Juego();
-
-    $juegos = $juego->agregarJuego($titulo, $plataforma, $lanzamiento, $img, $usuario);
-
-    if ($juegos) {
-        echo "Juego agregado correctamente.";
-        header('Location: index.php?action=listarJuegos');
-    } else {
-        echo "Error al agregar el juego.";
-        require_once ("../Vista/header.php");
-        require_once ("../Vista/nuevoJuego.php");
-        require_once ("../Vista/footer.php");
+    
+    if (!isset($_SESSION["usuario_id"])) {
+        header("Location: index.php?action=login");
+        exit;
+    }
+    
+    $usuario = $_SESSION["usuario_id"];
+    
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $titulo = $_POST["titulo"];
+        $plataforma = $_POST["plataforma"];
+        $lanzamiento = $_POST["lanzamiento"];
+        
+        $nombre_archivo = "";
+        
+        if (isset($_FILES["img"]) && $_FILES["img"]["error"] == UPLOAD_ERR_OK) {
+            $nombre_archivo = basename($_FILES["img"]["name"]);
+            $ruta_archivo = "../img/" . $nombre_archivo;
+            
+            if (!move_uploaded_file($_FILES["img"]["tmp_name"], $ruta_archivo)) {
+                echo "Error al mover el archivo.";
+                exit;
+            }
+        }
+        
+        $juego = new Juego();
+        $resultado = $juego->agregarJuego($titulo, $plataforma, $lanzamiento, $nombre_archivo, $usuario);
+        
+        if ($resultado) {
+            header("Location: index.php?action=listarJuegos");
+            exit;
+        } else {
+            echo "Error al agregar el juego.";
+            require_once("../Vista/header.php");
+            require_once("../Vista/nuevoJuego.php");
+            require_once("../Vista/footer.php");
+        }
     }
 }
 
+
+function redirigirNuevoJuego(){
+    session_start();
+    require_once ("../Vista/header.php");
+    require_once ("../Vista/nuevoJuego.php");
+    require_once ("../Vista/footer.php");
+}
 function listarUsuarios(){
     if(session_status() == PHP_SESSION_NONE){session_start();}
     // var_dump($_SESSION["tipo"]);
@@ -443,8 +491,26 @@ function agregarUsuarioAdmin(){
     }
 }
 
+function listarPrestamos(){
+    if(session_status() == PHP_SESSION_NONE){session_start();}
+    // var_dump($_SESSION["tipo"]);
+    
+    // $tipo = new Usuario();
+    // $_SESSION["tipo"] = $tipo->identificarTipo($_SESSION['usuario_id']);
+    
+    $tabla = new Prestamo();
+    // var_dump($_SESSION['usuario_id']);
+    $prestamos = $tabla->listaPrestamos($_SESSION['usuario_id']);
+    // var_dump($prestamos);
+    
+    require_once ("../Vista/header.php");
+    require_once ('../Vista/listaPrestamos.php');
+    require_once ("../Vista/footer.php");
+}
+
 function salir(){
     session_start();
+    session_unset();
     session_destroy();
     header("Location:../Controlador/index.php");
 }

@@ -76,94 +76,11 @@ class Juego {
     //ver si tengo que pasarle id de la session o del usuario
     public function agregarJuego($titulo, $plataforma, $lanzamiento, $img, $usuario){
         var_dump($lanzamiento); 
-        $sentencia = "INSERT INTO juegos (titulo, plataforma, lanzamiento, img) VALUES (?, ?, ?, ?)";
+        $sentencia = "INSERT INTO juegos (titulo, plataforma, lanzamiento, img, usuario) VALUES (?, ?, ?, ?, ?)";
         $stmt = $this->conn->getConn()->prepare($sentencia);
-        $stmt->bind_param("sssi", $titulo, $plataforma, $lanzamiento, $img);
+        $stmt->bind_param("ssssi", $titulo, $plataforma, $lanzamiento, $img, $usuario);
         return $stmt->execute();
     }
-
-
-    public function eliminarJuego() {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $stmt = $conn->prepare("DELETE FROM juegos WHERE id = ? AND usuario = ?");
-        $stmt->bind_param("ii", $this->id, $this->usuario);
-        
-        $resultado = $stmt->execute();
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $resultado;
-    }
-
-    public static function buscarPorId($id, $usuario) {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $stmt = $conn->prepare("SELECT * FROM juegos WHERE id = ? AND usuario = ?");
-        $stmt->bind_param("ii", $id, $usuario);
-        $stmt->execute();
-        
-        $resultado = $stmt->get_result();
-        $juego = null;
-        
-        if ($fila = $resultado->fetch_object()) {
-            $juego = new Juego();
-            $juego->id = $fila->id;
-            $juego->titulo = $fila->titulo;
-            $juego->plataforma = $fila->plataforma;
-            $juego->lanzamiento = $fila->lanzamiento;
-            $juego->img = $fila->img;
-            $juego->usuario = $fila->usuario;
-        }
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $juego;
-    }
-
-    public static function listarPorUsuario($usuario, $busqueda = '') {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $query = "SELECT * FROM juegos WHERE usuario = ?";
-        $parametros = [$usuario];
-        
-        if (!empty($busqueda)) {
-            $query .= " AND (titulo LIKE ? OR plataforma LIKE ?)";
-            $busquedaParam = "%$busqueda%";
-            $parametros[] = $busquedaParam;
-            $parametros[] = $busquedaParam;
-        }
-        
-        $stmt = $conn->prepare($query);
-        
-        // Bind dinámico de parámetros
-        $tipos = str_repeat('s', count($parametros));
-        $stmt->bind_param($tipos, ...$parametros);
-        
-        $stmt->execute();
-        $resultado = $stmt->get_result();
-        
-        $juegos = [];
-        while ($fila = $resultado->fetch_object()) {
-            $juego = new Juego();
-            $juego->id = $fila->id;
-            $juego->titulo = $fila->titulo;
-            $juego->plataforma = $fila->plataforma;
-            $juego->lanzamiento = $fila->lanzamiento;
-            $juego->img = $fila->img;
-            $juego->usuario = $fila->usuario;
-            $juegos[] = $juego;
-        }
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $juegos;
-    }
+    
 }
 ?>

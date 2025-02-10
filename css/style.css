@@ -213,12 +213,13 @@ main {
 
 /* Contenedor principal */
 .container {
-    width: 80%;
+    width: 90%;
     margin: auto;
     overflow: hidden;
     padding: 20px;
     background-color: white;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    margin-bottom: 50px;
 }
 
 /* TABLAS */
@@ -241,6 +242,9 @@ table th {
 }
 
 /* FORMULARIOS */
+form{
+    margin-bottom: 15px;
+}
 .form-grupo {
     margin-bottom: 15px;
 }

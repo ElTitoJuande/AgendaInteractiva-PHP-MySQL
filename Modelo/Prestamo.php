@@ -20,6 +20,21 @@ class Prestamo {
         $this->devuelto;
     }
 
+    public function listaPrestamos($usuario_id) {
+        $setencia = "SELECT * from prestamos WHERE usuario = ?";
+        $stmt = $this->conn->getConn()->prepare($setencia);
+        $stmt->bind_param("i", $usuario_id);
+        $stmt->bind_result($id, $usuario, $amigo, $juego, $fecha_prestamo, $devuelto);
+        $prestamos = array();
+        $stmt->execute();
+        while($stmt->fetch()){
+            $prestamos[]=array("id" => $id, "usuario" => $usuario, "amigo" => $amigo, "juego" => $juego, "fecha_prestamo" => $fecha_prestamo, "devuelto" => $devuelto);
+        }
+        $stmt->close();
+        return $prestamos;
+    }
+    //////////////////////////
+
     public function guardar() {
         $db = new db();
         $conn = $db->getConn();

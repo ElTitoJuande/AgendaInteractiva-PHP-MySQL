@@ -11,7 +11,7 @@
             <div class="container">
                 <h1>Añadir Nuevo Juego</h1>
 
-                <form action="../Controlador/index.php?action=agregarJuego" method="post">
+                <form action="../Controlador/index.php?action=agregarJuego" method="post" enctype='multipart/form-data'>
                     <div class="form-grupo">
                         <label for="titulo">Título:</label>
                         <input type="text" id="titulo" name="titulo" required>
@@ -23,8 +23,8 @@
                     </div>
 
                     <div class="form-grupo">
-                        <label for="lanzamiento">Fecha de Nacimiento:</label>
-                        <input type="date" id="lanzamiento" name="lanzamiento" required>
+                        <label for="lanzamiento">Año de lanzamiento:</label>
+                        <input type="text" id="lanzamiento" name="lanzamiento" required>
                     </div>
 
                     <div class="form-grupo">

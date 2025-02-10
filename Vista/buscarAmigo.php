@@ -79,7 +79,7 @@ if (isset($_SESSION['usuario_id'])) {
                         <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>">
                          <button type="submit">Buscar</button>
                      </form>
-                     <a href="../Vista/nuevoAmigo.php">Añadir nuevo amigo</a>
+                     <a href="../Controlador/index.php?action=redirigirNuevoAmigo">Añadir nuevo amigo</a>
                 </div>
 
                 <table>
