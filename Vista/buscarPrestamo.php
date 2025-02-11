@@ -16,7 +16,6 @@
                         <input type="text" name="busqueda" placeholder="Buscar Prestamos" value="<?php $busqueda?>">
                          <button type="submit">Buscar</button>
                      </form>
-                     <a href="../Controlador/index.php?action=redirigirNuevoPrestamo">Añadir nuevo préstamo</a>
                 </div>
                 
                 <table>

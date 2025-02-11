@@ -11,10 +11,10 @@
             <div class="container">
                 <h1>Añadir Nuevo Prestamo</h1>
 
-                <form action="index.php?action=actualizarPrestamo" method="post" enctype='multipart/form-data'>
-                <input type="hidden" name="prestamo.id" value="<?= $_POST["id"] ?>">
-                <label for="amigos.nombre">Amigo:</label>
-                    <select name="id">
+                <form action="index.php?action=agregarPrestamo" method="post" enctype='multipart/form-data'>
+                <input type="hidden" name="id" value="<?= $prestamo["id"] ?>">
+                <label for="nombre">Amigo:</label>
+                    <select name="amigo_id">
                         <?php
                         foreach ($amigos as $amigo) {
                         ?>
@@ -25,22 +25,21 @@
                     </select>
                     <br>
                 <label for="nombre">Juego:</label>
-                <select name="id">
+                    <select name="juego_id">
                         <?php
                         foreach ($juegos as $juego) {   
                         ?>
-                            <option value="<?= $juego["id"] ?>"><?= $juego["nombre"] ?></option>
+                            <option value="<?= $juego["id"] ?>"><?= $juego["titulo"] ?></option>
                        <?php 
                             }
                         ?>
                     </select>
-                <input type="text" name="titulo" value="<?= $prestamos["titulo"] ?>" required>
-                <input type="file" name="img" value="<?= $prestamos["img"] ?>" required>
                 <br>
                 <label for="fecha_prestamo">Fecha préstamo:</label>
-                <input type="input" name="fecha_prestamo" value="<?= $prestamos["fecha_prestamo"] ?>" required>
+                <input type="date" name="fecha_prestamo" value="<?= $prestamo["fecha_prestamo"] ?>" required>
                 <br>
-                <button type="submit">Editar</button>
+                <input type="hidden" name="devuelto" value="0" required>
+                <button type="submit">Guardar</button>
             </form>
             <form action="../Controlador/index.php?action=volverListaprestamos" method="post">
                     <button type="submit" class="btn">Volver a la lista de prestamos</button>

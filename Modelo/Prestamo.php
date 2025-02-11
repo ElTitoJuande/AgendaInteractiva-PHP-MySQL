@@ -67,6 +67,23 @@ class Prestamo {
         return $prestamos;
     }
 
+    public function devolverPrestamo($id, $devuelto) {
+        $setencia = "UPDATE prestamos SET devuelto = ? WHERE id = ?";
+        $stmt = $this->conn->getConn()->prepare($setencia);
+        $stmt->bind_param("ii", $devuelto, $id);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+    public function agregarPrestamo($usuario, $amigo, $juego, $fecha_prestamo, $devuelto) {
+        $setencia = "INSERT INTO prestamos (usuario, amigo, juego, fecha_prestamo, devuelto) VALUES (?,?,?,?,?)";
+        $stmt = $this->conn->getConn()->prepare($setencia);
+        $stmt->bind_param("iiisi", $usuario, $amigo, $juego, $fecha_prestamo, $devuelto);
+        $stmt->execute();
+        $stmt->close();
+        return true;
+    }
+
     // public function buscarPrestamosPorNombre($busqueda, $id) {
     //     $setencia = "SELECT * from prestamos WHERE amigo = ?";
     //     $stmt = $this->conn->getConn()->prepare($setencia);

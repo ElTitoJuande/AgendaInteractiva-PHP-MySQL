@@ -518,7 +518,26 @@ function listarPrestamos(){
     
     $tabla = new Prestamo();
     $prestamos = $tabla->listaPrestamos($_SESSION['usuario_id']);
-    
+
+    //
+    // $nombre = $_POST['nombreUsu'];
+    $usuario = new Usuario();
+    $usuarios = $usuario->listarUsuarios();
+    // var_dump($usuarios);
+
+    $amigo = new Amigo();
+    $amigos = $amigo->listarAmigosPorUsuario($_SESSION["usuario_id"]);
+    // var_dump($amigos);
+
+    $juegoClass = new Juego();
+    $juegos = $juegoClass->listarJuegos($_SESSION["usuario_id"]);
+    // var_dump($juego);
+
+    $prestamoClass = new Prestamo();
+    $prestamos = $prestamoClass->buscarPrestamoPorId($id);
+    // var_dump($prestamos);
+
+    //
     require_once ("../Vista/header.php");
     require_once ('../Vista/listaPrestamos.php');
     require_once ("../Vista/footer.php");
@@ -555,10 +574,32 @@ function redirigirNuevoPrestamo(){
     require_once ("../Vista/nuevoPrestamo.php");
     require_once ("../Vista/footer.php");
 }
-function editarPrestamo(){
+function agregarPrestamo(){
+    session_start();
+    $usuario = $_SESSION["usuario_id"];
+    $amigo = $_POST['amigo_id'];
+    $juego = $_POST['juego_id'];
+    $fecha_prestamo = $_POST['fecha_prestamo'];
+    $devuelto = $_POST['devuelto'];
+    
+    $prestamo = new Prestamo();
+    $prestamos = $prestamo->agregarPrestamo( $usuario, $amigo, $juego, $fecha_prestamo, $devuelto);
+    // var_dump($prestamo);
+    
+    if ($prestamos) {
+        echo "Prestamo agregado correctamente.";
+        header('Location: index.php?action=listarPrestamos');
+    } else {
+        echo "Error al agregar el prestamo.";
+        require_once ("../Vista/header.php");
+        require_once ("../Vista/nuevoPrestamo.php");
+        require_once ("../Vista/footer.php");
+    }
+}
+function actualizarPrestamo(){
     session_start();
     
-    $id = $_POST['id'];
+    $id = $_SESSION["usuario_id"];
     
     // $nombre = $_POST['nombreUsu'];
     $usuario = new Usuario();
@@ -578,15 +619,30 @@ function editarPrestamo(){
     // var_dump($prestamos);
     
     require_once ("../Vista/header.php");
-    require_once ("../Vista/editarPrestamo.php");
+    require_once ("../Vista/nuevoPrestamo.php");
     require_once ("../Vista/footer.php");
 }
 function volverListaPrestamos(){
     session_start();
     header('Location: index.php?action=listarPrestamos');
 }
-function devolverPrestamo(){
+function devolverPrestamos(){
+    session_start();
+    $id = $_POST['id'];
     
+    $devuelto = 1;
+
+    $prestamo = new Prestamo();
+    $prestamos = $prestamo->devolverPrestamo($id, $devuelto);
+    // var_dump($prestamo);
+    
+    if ($prestamos) {
+        echo "Prestamo devuelto correctamente.";
+        header('Location: index.php?action=listarPrestamos');
+    }else{
+        echo "Error al devolver el prestamo.";
+    }
+
 }
 function salir(){
     session_start();

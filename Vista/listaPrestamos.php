@@ -14,7 +14,7 @@
             <form action="index.php?action=redirigirBuscarPrestamo" method="post">
                 <button type="submit">Buscar</button>
             </form>
-                <a href="../Controlador/index.php?action=redirigirNuevoPrestamo">Añadir nuevo préstamo</a>
+                <a href="../Controlador/index.php?action=actualizarPrestamo">Añadir nuevo préstamo</a>
             <table>
                 <thead>
                     <tr>
@@ -28,13 +28,22 @@
                     <?php foreach($prestamos as $prestamo): ?>
                     <tr>
                         <td><?= $prestamo["amigo"] ?></td>
-                        <td><?= $prestamo["juego"] ?></td>
+                        <td><?= $prestamo["juego"] ?></td> <!-- Teno que llamar a la imagen tb -->
                         <td><?= $prestamo["fecha_prestamo"] ?></td>
-                        <td> 
-                        <form action="index.php?action=devolverPrestamo" method="post">
-                            <input type="hidden" name="id" value="<?= $prestamo["devuelto"] ?>">
+                        <td> <?php if($prestamo["devuelto"] == 0){
+                            ?>
+                            <form action="index.php?action=devolverPrestamos" method="post">
+                            <input type="hidden" name="id" value="<?= $prestamo["id"] ?>">
                             <input type="submit" class="btn" value="Devolver">
-                        </form>
+                            </form>
+                            <?php
+                        }else{
+                            ?>
+                            <form action="index.php?action=devolverPrestamos" method="post">
+                                <button value="<?= $prestamo["id"] ?>" disabled>Devuelto</button>
+                            </form>
+                            <?php
+                        } ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>
