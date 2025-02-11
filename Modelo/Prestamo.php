@@ -25,7 +25,7 @@ class Prestamo {
         $stmt = $this->conn->getConn()->prepare($sentencia);
         $stmt->bind_param("i", $usuario_id);
         $stmt->bind_result($id, $usuario, $amigo, $juego, $fecha_prestamo, $devuelto);
-        $prestamos = array();
+        $prestamos = array();        
         $stmt->execute();
         while($stmt->fetch()){
             $prestamos[]=array("id" => $id, "usuario" => $usuario, "amigo" => $amigo, "juego" => $juego, "fecha_prestamo" => $fecha_prestamo, "devuelto" => $devuelto);
@@ -35,14 +35,19 @@ class Prestamo {
     }
 
     public function buscarPrestamos($busqueda, $id) {
-        $sentencia = "SELECT * from prestamos WHERE amigo = ?";
+        $sentencia = "SELECT amigos.nombre, juegos.titulo, juegos.img, prestamos.fecha_prestamo, prestamos.devuelto, prestamos.id from prestamos 
+        LEFT JOIN amigos ON prestamos.amigo = amigos.id 
+        LEFT JOIN juegos ON prestamos.juego = juegos.id
+        LEFT JOIN usuarios ON prestamos.usuario = usuarios.id
+        WHERE amigos.nombre LIKE ? OR juegos.titulo LIKE ? ";
         $stmt = $this->conn->getConn()->prepare($sentencia);
-        $stmt->bind_param("i", $busqueda);
-        $stmt->bind_result($id, $usuario, $amigo, $juego, $fecha_prestamo, $devuelto);
+        $busqueda = "%$busqueda%";
+        $stmt->bind_param("ss",$busqueda,$busqueda);
+        $stmt->bind_result($amigo, $juego, $img, $fecha_prestamo, $devuelto, $id);
         $prestamos = array();
         $stmt->execute();
         while($stmt->fetch()){
-            $prestamos[]=array("id" => $id, "usuario" => $usuario, "amigo" => $amigo, "juego" => $juego, "fecha_prestamo" => $fecha_prestamo, "devuelto" => $devuelto);
+            $prestamos[]=array("amigo" => $amigo, "juego" => $juego, "img" => $img, "fecha_prestamo" => $fecha_prestamo, "devuelto" => $devuelto, "id" => $id);
         }
         $stmt->close();
         return $prestamos;
@@ -50,18 +55,19 @@ class Prestamo {
 
 
     public function buscarPrestamoPorId($id) {
-        $sentencia = "SELECT amigos.nombre, usuarios.id, juegos.titulo, juegos.img, prestamos.fecha_prestamo, prestamos.devuelto from prestamos 
-        INNER JOIN amigos ON prestamos.amigo = amigos.id 
-        INNER JOIN juegos ON prestamos.juego = juegos.id
-        INNER JOIN usuarios ON prestamos.usuario = usuarios.id
+        $sentencia = "SELECT amigos.nombre, juegos.titulo, juegos.img, prestamos.fecha_prestamo, prestamos.devuelto, prestamos.id from prestamos 
+        LEFT JOIN amigos ON prestamos.amigo = amigos.id 
+        LEFT JOIN juegos ON prestamos.juego = juegos.id
+        LEFT JOIN usuarios ON prestamos.usuario = usuarios.id
         WHERE usuarios.id = ? ";
         $stmt = $this->conn->getConn()->prepare($sentencia);
         $stmt->bind_param("i", $id);
-        $stmt->bind_result($id, $usuario, $amigo, $juego, $fecha_prestamo, $devuelto);
+        $stmt->bind_result($amigo, $juego, $img, $fecha_prestamo, $devuelto, $id);
         $prestamos = array();
         $stmt->execute();
         while($stmt->fetch()){
-            $prestamos[]=array("id" => $id, "usuario" => $usuario, "amigo" => $amigo, "juego" => $juego, "fecha_prestamo" => $fecha_prestamo, "devuelto" => $devuelto);
+            $fecha_prestamo = date("d-m-Y", strtotime($fecha_prestamo));
+            $prestamos[]=array("amigo" => $amigo, "juego" => $juego, "img" => $img, "fecha_prestamo" => $fecha_prestamo, "devuelto" => $devuelto, "id" => $id);
         }
         $stmt->close();
         return $prestamos;

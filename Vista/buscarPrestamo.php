@@ -25,21 +25,28 @@
                             <th>Juego</th>
                             <th>Fecha préstamo</th>
                             <th>Devuelto</th>
-                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($prestamos as $prestamo): ?>
                         <tr>
                             <td><?= $prestamo["amigo"] ?></td>
-                            <td><?= $prestamo["juego"] ?></td>
+                            <td><?= $prestamo["juego"] ?><img src="../img/<?= $prestamo["img"]?>" alt="" style="margin:10px; width: 150px;"></td> 
                             <td><?= $prestamo["fecha_prestamo"] ?></td>
-                            <td><?= $prestamo["devuelto"] ?></td>
-                            <td> 
-                            <form action="index.php?action=editarPrestamos" method="post">
+                            <td> <?php if($prestamo["devuelto"] == 0){
+                                ?>
+                                <form action="index.php?action=devolverPrestamos" method="post">
                                 <input type="hidden" name="id" value="<?= $prestamo["id"] ?>">
-                                <input type="submit" class="btn" value="Editar">
-                            </form>
+                                <input type="submit" class="btn" value="Devolver">
+                                </form>
+                                <?php
+                            }else{
+                                ?>
+                                <form action="index.php?action=devolverPrestamos" method="post">
+                                    <button value="<?= $prestamo["id"] ?>" disabled>Devuelto</button>
+                                </form>
+                                <?php
+                            } ?>
                             </td>
                         </tr>
                         <?php endforeach; ?>

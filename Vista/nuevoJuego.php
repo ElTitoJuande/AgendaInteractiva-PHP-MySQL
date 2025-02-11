@@ -24,7 +24,7 @@
 
                     <div class="form-grupo">
                         <label for="lanzamiento">Año de lanzamiento:</label>
-                        <input type="text" id="lanzamiento" name="lanzamiento" required>
+                        <input type="number" id="lanzamiento" name="lanzamiento" required>
                     </div>
 
                     <div class="form-grupo">

@@ -24,9 +24,9 @@ class Amigo {
         $amigos=array();
         $stmt->execute();
         while ($stmt->fetch()) {
+            $fecha_nac = date("d-m-Y", strtotime($fecha_nac));
             $amigos[] = array("id" => $id,"nombre" => $nombre, "apellidos" => $apellidos, "fecha_nac" => $fecha_nac, "usuario" => $usuario);
         }
-
         $stmt -> close();
         
         return $amigos;
@@ -39,6 +39,7 @@ class Amigo {
         $amigos=array();
         $stmt->execute();
         while ($stmt->fetch()) {
+            $fecha_nac = date("d-m-Y", strtotime($fecha_nac));
             $amigos[] = array("id" => $id,"nombre" => $nombre, "apellidos" => $apellidos, "fecha_nac" => $fecha_nac);
         }
 
@@ -66,6 +67,7 @@ class Amigo {
         $stmt->bind_result($id,$nombre, $apellidos, $fecha_nac);
         $stmt->execute();
         $stmt->fetch();
+        $fecha_nac = date("d-m-Y", strtotime($fecha_nac));
         $amigo = array("id" => $id,"nombre" => $nombre, "apellidos" => $apellidos, "fecha_nac" => $fecha_nac);
         $stmt -> close();
         return $amigo;
@@ -81,6 +83,7 @@ class Amigo {
         $stmt->execute();
         // var_dump($sentencia);
         while ($stmt->fetch()) {
+            $fecha_nac = date("d-m-Y", strtotime($fecha_nac));
             $amigos[] = array("id" => $id, "nombre" => $nombre, "apellidos" => $apellidos, "fecha_nac" => $fecha_nac);
         }
         // var_dump($amigos);
@@ -98,6 +101,7 @@ class Amigo {
         $stmt->bind_result($id, $nombre, $apellidos, $fecha_nac, $usuario);
         
         while ($stmt->fetch()) {
+            $fecha_nac = date("d-m-Y", strtotime($fecha_nac));
             $amigos[] = array("id" => $id, "nombre" => $nombre, "apellidos" => $apellidos, "fecha_nac" => $fecha_nac, "usuario" => $usuario);
         }
         

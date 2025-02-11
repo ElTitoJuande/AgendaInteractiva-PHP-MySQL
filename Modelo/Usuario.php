@@ -63,8 +63,7 @@ class Usuario {
         $stmt->bind_param("sssi", $nombre, $contrasena, $tipo, $id);
         $stmt->execute();
 
-        if($stmt->affected_rows > 0) return true;
-        else return false;
+        return true;
     }
     public function agregarUsuario($nombre, $contrasena) {
         $stmt = $this->conn->getConn()->prepare("INSERT INTO usuarios (nombre, contrasena, tipo) VALUES (?, ?, 'usuario')");

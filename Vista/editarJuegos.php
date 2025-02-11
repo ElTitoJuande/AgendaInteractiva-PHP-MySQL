@@ -24,7 +24,7 @@
                 <label for="img">Imagen:</label>
                 <input type="file" name="img" value="<?= $juegos["img"] ?>" required>
                 <br>
-                <button type="submit">Editar</button>
+                <button type="submit" class="btn">Editar</button>
             </form>
             <form action="../Controlador/index.php?action=volverListaJuegos" method="post">
                     <button type="submit" class="btn">Volver a la lista de juegos</button>

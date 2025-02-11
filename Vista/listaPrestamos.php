@@ -32,7 +32,7 @@
                     <?php foreach($prestamos as $prestamo): ?>
                     <tr>
                         <td><?= $prestamo["amigo"] ?></td>
-                        <td><?= $prestamo["juego"] ?></td> <!-- Teno que llamar a la imagen tb -->
+                        <td><?= $prestamo["juego"] ?><img src="../img/<?= $prestamo["img"]?>" alt="" style="margin:10px; width: 150px;"></td> 
                         <td><?= $prestamo["fecha_prestamo"] ?></td>
                         <td> <?php if($prestamo["devuelto"] == 0){
                             ?>

@@ -443,20 +443,15 @@ function actualizarUsuario(){
     $contrasena = $_POST['contrasena'];
     $tipo = $_POST['tipo'];
     
-    $usuario = new Usuario();
     
+    $usuario = new Usuario();
     $usuarios = $usuario->editarUsuario($id, $nombre, $contrasena, $tipo);
-    var_dump($usuarios);
+    // var_dump($usuarios);
     
     if ($usuarios) {
         echo "Usuario actualizado correctamente.";
         header('Location: index.php?action=listarUsuarios');
-    } else {
-        echo "Error al actualizar el usuario.";
-        require_once ("../Vista/header.php");
-        require_once ("../Vista/editarUsuario.php");
-        require_once ("../Vista/footer.php");
-    }
+    } 
 }
 function redirigirNuevoUsuario(){
     session_start();
@@ -553,7 +548,7 @@ function buscarPrestamo(){
         $id = $_SESSION['usuario_id'];
         
         $prestamos = $prestamo->buscarPrestamos($busqueda, $id);
-        var_dump($prestamos);
+        // var_dump($prestamos);
         
         require_once ("../Vista/header.php");
         require_once ("../Vista/buscarPrestamo.php");
