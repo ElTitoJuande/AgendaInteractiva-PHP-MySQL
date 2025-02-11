@@ -12,9 +12,11 @@
 
                 <div class="botones">
                     <form action="index.php?action=redirigirBuscarUsuario" method="post">
-                         <button type="submit">Buscar</button>
+                         <button type="submit" class="btn">Buscar</button>
                      </form>
-                    <a href="../Controlador/index.php?action=redirigirNuevoUsuario">Añadir nuevo usuario</a>
+                     <form action="index.php?action=redirigirNuevoUsuario" method="post">
+                         <button type="submit" class="btn">Añadir nuevo contacto</button>
+                     </form>
                 </div>
 
                 <table>

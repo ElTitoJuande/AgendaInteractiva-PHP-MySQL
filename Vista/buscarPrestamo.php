@@ -13,10 +13,10 @@
 
                 <div class="botones">
                     <form action="index.php?action=buscarPrestamo" method="post">
-                        <input type="text" name="busqueda" placeholder="Buscar Prestamos" value="<?php $busqueda?>">
-                         <button type="submit">Buscar</button>
+                        <input type="text" name="busqueda" placeholder="Buscar préstamo" value="<?php $busqueda?>">
+                         <button type="submit" class="btn">Buscar</button>
                      </form>
-                </div>
+                 </div>
                 
                 <table>
                     <thead>

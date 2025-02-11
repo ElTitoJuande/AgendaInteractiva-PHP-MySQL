@@ -22,9 +22,11 @@ if (isset($_SESSION['usuario_id'])) {
                 <div class="botones">
                     <form action="index.php?action=buscarAmigoAdmin" method="post">
                         <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>">
-                         <button type="submit">Buscar</button>
+                         <button type="submit" class="btn">Buscar</button>
                      </form>
-                     <a href="../Controlador/index.php?action=redirigirNuevoAmigo">Añadir nuevo amigo</a>
+                     <form action="index.php?action=redirigirNuevoAmigo" method="post">
+                         <button type="submit" class="btn">Añadir nuevo amigo</button>
+                     </form>
                 </div>
                 
                 <table>
@@ -77,9 +79,11 @@ if (isset($_SESSION['usuario_id'])) {
                 <div class="botones">
                     <form action="index.php?action=BuscarAmigo" method="post">
                         <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>">
-                         <button type="submit">Buscar</button>
+                         <button type="submit" class="btn">Buscar</button>
                      </form>
-                     <a href="../Controlador/index.php?action=redirigirNuevoAmigo">Añadir nuevo amigo</a>
+                     <form action="index.php?action=redirigirNuevoAmigo" method="post">
+                         <button type="submit" class="btn">Añadir nuevo amigo</button>
+                     </form>
                 </div>
 
                 <table>

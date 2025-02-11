@@ -21,11 +21,12 @@ if (isset($_SESSION['usuario_id'])) {
                 <h1>Mis Contactos</h1>
 
                 <div class="botones">
-                    <!-- <input type="text" name="busqueda" placeholder="Buscar amigos" value="<?php $busqueda?>"> -->
                     <form action="index.php?action=redirigirBuscarAmigoAdmin" method="post">
-                         <button type="submit">Buscar</button>
+                         <button type="submit" class="btn">Buscar</button>
                      </form>
-                    <a href="../Controlador/index.php?action=redirigirNuevoAmigo">Añadir nuevo contacto</a>
+                     <form action="index.php?action=redirigirNuevoAmigo" method="post">
+                         <button type="submit" class="btn">Añadir nuevo contacto</button>
+                     </form>
                 </div>
 
                 <table>
@@ -74,10 +75,14 @@ if (isset($_SESSION['usuario_id'])) {
             <div class="container">
                 <h1>Mis Amigos</h1>
                 
-                <form action="index.php?action=redirigirBuscarAmigo" method="post">
-                    <button type="submit">Buscar</button>
-                </form>
-                    <a href="../Controlador/index.php?action=redirigirNuevoAmigo">Añadir nuevo amigo</a>
+                <div class="botones">
+                    <form action="index.php?action=redirigirBuscarAmigo" method="post">
+                         <button type="submit" class="btn">Buscar</button>
+                     </form>
+                     <form action="index.php?action=redirigirNuevoAmigo" method="post">
+                         <button type="submit" class="btn">Añadir nuevo amigo</button>
+                     </form>
+                </div>
                 <table>
                     <thead>
                         <tr>

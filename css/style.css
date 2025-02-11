@@ -262,6 +262,10 @@ form{
 }
 
 /* BOTONES */
+.botones{
+    display: flex;
+
+}
 .btn {
     display: inline-block;
     background-color: rgba(238, 188, 119, 1);

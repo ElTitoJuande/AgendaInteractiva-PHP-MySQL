@@ -39,7 +39,7 @@
                 <input type="date" name="fecha_prestamo" value="<?= $prestamo["fecha_prestamo"] ?>" required>
                 <br>
                 <input type="hidden" name="devuelto" value="0" required>
-                <button type="submit">Guardar</button>
+                <button type="submit" class="btn">Guardar</button>
             </form>
             <form action="../Controlador/index.php?action=volverListaprestamos" method="post">
                     <button type="submit" class="btn">Volver a la lista de prestamos</button>

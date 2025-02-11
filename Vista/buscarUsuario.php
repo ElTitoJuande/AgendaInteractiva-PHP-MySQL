@@ -10,13 +10,15 @@
         <body>
             <div class="container">
                 <h1>Mis Usuarios</h1>
-
+                
                 <div class="botones">
-                    <form action="index.php?action=buscarUsuario" method="post">
+                    <form action="index.php?action=BuscarUsuario" method="post">
                         <input type="text" name="busqueda" placeholder="Buscar Usuarios" value="<?php $busqueda?>">
-                         <button type="submit">Buscar</button>
+                         <button type="submit" class="btn">Buscar</button>
                      </form>
-                     <a href="../Controlador/index.php?action=redirigirNuevoUsuario">Añadir nuevo Usuario</a>
+                     <form action="index.php?action=redirigirNuevoUsuario" method="post">
+                         <button type="submit" class="btn">Añadir nuevo contacto</button>
+                     </form>
                 </div>
                 
                 <table>

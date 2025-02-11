@@ -10,11 +10,15 @@
     <body>
         <div class="container">
             <h1>Mis Prestamos</h1>
-            
-            <form action="index.php?action=redirigirBuscarPrestamo" method="post">
-                <button type="submit">Buscar</button>
-            </form>
-                <a href="../Controlador/index.php?action=actualizarPrestamo">Añadir nuevo préstamo</a>
+
+            <div class="botones">
+                <form action="index.php?action=redirigirBuscarPrestamo" method="post">
+                        <button type="submit" class="btn">Buscar</button>
+                    </form>
+                    <form action="index.php?action=actualizarPrestamo" method="post">
+                        <button type="submit" class="btn">Añadir nuevo préstamo</button>
+                    </form>
+            </div>
             <table>
                 <thead>
                     <tr>

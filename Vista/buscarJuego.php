@@ -13,10 +13,12 @@
             
             <div class="botones">
                 <form action="index.php?action=buscarJuego" method="post">
-                    <input type="text" name="busqueda" placeholder="Buscar juegos" value="<?php $busqueda?>">
-                        <button type="submit">Buscar</button>
-                    </form>
-                    <a href="../Controlador/index.php?action=redirigirNuevoJuego">Añadir nuevo juego</a>
+                        <input type="text" name="busqueda" placeholder="Buscar juegos" value="<?php $busqueda?>">
+                         <button type="submit" class="btn">Buscar</button>
+                     </form>
+                     <form action="index.php?action=redirigirNuevoJuego" method="post">
+                         <button type="submit" class="btn">Añadir nuevo juego</button>
+                     </form>
             </div>
 
             <table>

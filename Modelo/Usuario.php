@@ -48,6 +48,7 @@ class Usuario {
         $stmt->bind_param("s", $busqueda);  
         $stmt->bind_result($id, $nombre, $contrasena, $tipo);
         $stmt->execute();
+        $usuarios = array();
         while ($stmt->fetch()) {
             $usuarios[] = array("id" => $id,"nombre" => $nombre, "contrasena" => $contrasena, "tipo" => $tipo);
         }
@@ -100,21 +101,6 @@ class Usuario {
         $stmt->fetch();
         return $tipo;
     }   
-
-    public function actualizarUsuario() {
-        $db = new db();
-        $conn = $db->getConn();
-        
-        $stmt = $conn->prepare("UPDATE usuarios SET nombre = ?, contrasena = ?, tipo = ? WHERE id = ?");
-        $stmt->bind_param("sssi", $this->nombre, $this->contrasena, $this->tipo, $this->id);
-        
-        $resultado = $stmt->execute();
-        
-        $stmt->close();
-        $conn->close();
-        
-        return $resultado;
-    }
 
 }
 ?>

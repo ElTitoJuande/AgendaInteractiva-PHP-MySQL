@@ -40,7 +40,7 @@ if (isset($_SESSION['usuario_id'])) {
                         ?>
                     </select>
                     <br>
-                    <button type="submit">Editar</button>
+                    <button type="submit" class="btn">Editar</button>
                 </form>
                 <form action="../Controlador/index.php?action=volverListaAmigos" method="post">
                         <button type="submit" class="btn">Volver a la lista de amigos</button>
@@ -76,7 +76,7 @@ if (isset($_SESSION['usuario_id'])) {
                     <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
                     <input type="date" name="fecha_nac" value="<?= $amigos["fecha_nac"] ?>" required>
                     <br>
-                    <button type="submit">Editar</button>
+                    <button type="submit" class="btn">Editar</button>
                     </form>
                     <form action="../Controlador/index.php?action=volverListaAmigos" method="post">
                         <button type="submit" class="btn">Volver a la lista de amigos</button>

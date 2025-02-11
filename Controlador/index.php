@@ -484,16 +484,18 @@ function agregarUsuario(){
     }
 }
 function buscarUsuario(){
+    if(session_status() == PHP_SESSION_NONE){session_start();}
     $busqueda = $_POST['busqueda'];
+    $id = $_SESSION['usuario_id'];
     
     if (strlen($busqueda) > 0) {
-        session_start();
-        $id = $_SESSION['usuario_id'];
         $usuario = new Usuario();
         
         $usuarios = $usuario->buscarUsuarioNombre($busqueda, $id);
         // var_dump($usuarios);
-        
+        if($usuarios === null){
+            $usuarios = array();
+        }
         require_once ("../Vista/header.php");
         require_once ("../Vista/buscarUsuario.php");
         require_once ("../Vista/footer.php");
@@ -502,7 +504,7 @@ function buscarUsuario(){
     }
 }
 function redirigirBuscarUsuario(){
-    session_start();
+    if(session_status() == PHP_SESSION_NONE){session_start();}    
     $usuarios = [];        
     require_once ("../Vista/header.php");
     require_once ("../Vista/buscarUsuario.php");
@@ -534,7 +536,7 @@ function listarPrestamos(){
     // var_dump($juego);
 
     $prestamoClass = new Prestamo();
-    $prestamos = $prestamoClass->buscarPrestamoPorId($id);
+    $prestamos = $prestamoClass->buscarPrestamoPorId($_SESSION["usuario_id"]);
     // var_dump($prestamos);
 
     //
