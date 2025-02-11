@@ -16,7 +16,7 @@
                     <input type="text" name="busqueda" placeholder="Buscar juegos" value="<?php $busqueda?>">
                         <button type="submit">Buscar</button>
                     </form>
-                    <a href="../Vista/nuevoJuegos.php">Añadir nuevo juego</a>
+                    <a href="../Controlador/index.php?action=redirigirNuevoJuego">Añadir nuevo juego</a>
             </div>
 
             <table>
@@ -24,7 +24,7 @@
                     <tr>
                         <th>Título</th>
                         <th>Plataforma</th>
-                        <th>lanzamiento</th>
+                        <th>Lanzamiento</th>
                         <th>Imagen</th>
                         <th>Acciones</th>
                     </tr>

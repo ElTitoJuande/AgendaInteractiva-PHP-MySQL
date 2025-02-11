@@ -1,3 +1,4 @@
+<main>
 <!DOCTYPE html>
         <html lang="es">
         <head>
@@ -26,3 +27,4 @@
             </div>
         </body>
         </html>
+</main>

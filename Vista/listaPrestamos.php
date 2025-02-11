@@ -22,7 +22,6 @@
                         <th>Juego</th>
                         <th>Fecha préstamo</th>
                         <th>Devuelto</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,11 +30,10 @@
                         <td><?= $prestamo["amigo"] ?></td>
                         <td><?= $prestamo["juego"] ?></td>
                         <td><?= $prestamo["fecha_prestamo"] ?></td>
-                        <td><?= $prestamo["devuelto"] ?></td>
                         <td> 
-                        <form action="index.php?action=editarPrestamos" method="post">
-                            <input type="hidden" name="id" value="<?= $prestamo["id"] ?>">
-                            <input type="submit" class="btn" value="Editar">
+                        <form action="index.php?action=devolverPrestamo" method="post">
+                            <input type="hidden" name="id" value="<?= $prestamo["devuelto"] ?>">
+                            <input type="submit" class="btn" value="Devolver">
                         </form>
                         </td>
                     </tr>
