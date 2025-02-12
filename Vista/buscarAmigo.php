@@ -1,12 +1,12 @@
 <main>
     <?php
-// Verifica si el usuario tiene una sesión iniciada
+//Verifica si el usuario tiene una sesión iniciada
 if (isset($_SESSION['usuario_id'])) {
     
-    // var_dump($amigos);
-    // Verifica si el usuario es administrador
+    //var_dump($amigos);
+    //Verifica si el usuario es administrador
     if (strcmp($_SESSION["tipo"], "admin") == 0) {
-        // Vista de lista de amigos para administradores
+        //Vista de lista de amigos para administradores
         ?>
         <!DOCTYPE html>
         <html lang="es">
@@ -63,7 +63,7 @@ if (isset($_SESSION['usuario_id'])) {
         </html>
         <?php
     } else {
-        // Vista de lista de amigos para usuarios normales
+        //Vista de lista de amigos para usuarios normales
         ?>
         <!DOCTYPE html>
         <html lang="es">

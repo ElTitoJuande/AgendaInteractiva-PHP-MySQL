@@ -1,9 +1,9 @@
 <main>
 <?php
-// Verifica si el usuario tiene una sesión iniciada
+//Verifica si el usuario tiene una sesión iniciada
 if (isset($_SESSION['usuario_id'])) {
 
-    // Verifica si el usuario es administrador
+    //Verifica si el usuario es administrador
     if (strcmp($_SESSION["tipo"], "admin") == 0) {
 
         ?>
@@ -50,8 +50,8 @@ if (isset($_SESSION['usuario_id'])) {
         </html>
         <?php
     } else {
-        // Vista de editar amigo para usuarios normales
-        // var_dump($_POST['id']);
+        //Vista de editar amigo para usuarios normales
+        //var_dump($_POST['id']);
 
         ?>
         <!DOCTYPE html>
@@ -88,7 +88,7 @@ if (isset($_SESSION['usuario_id'])) {
         <?php
     }
 } else {
-    // Si no hay sesión iniciada, redirige al usuario a la página de login
+    //Si no hay sesión iniciada, redirige al usuario a la página de login
     header('Location: login.php');
     exit;
 }

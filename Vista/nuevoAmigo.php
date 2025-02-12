@@ -1,10 +1,10 @@
 <main>
 <?php
-// Verifica si el usuario tiene una sesión iniciada
-// var_dump($_SESSION['usuario_id']);
+//Verifica si el usuario tiene una sesión iniciada
+//var_dump($_SESSION['usuario_id']);
 if (isset($_SESSION['usuario_id'])) {
     
-    // Verifica si el usuario es administrador
+    //Verifica si el usuario es administrador
     if (strcmp($_SESSION["tipo"], "admin") == 0) {
         
         ?>
@@ -53,7 +53,7 @@ if (isset($_SESSION['usuario_id'])) {
         </html>
         <?php
     } else {
-        // Vista para usuarios normales
+        //Vista para usuarios normales
         ?>
         
         <!DOCTYPE html>

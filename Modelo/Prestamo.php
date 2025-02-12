@@ -1,6 +1,7 @@
 <?php
 require_once('../Modelo/class.db.php');
 
+//Clase para gestionar los préstamos
 class Prestamo {
     private $conn;
     public $id;
@@ -10,6 +11,7 @@ class Prestamo {
     public $fecha_prestamo;
     public $devuelto;
 
+    //Inicializa la conexión a la base de datos y los atributos
     public function __construct() {
         $this->conn=new db();
         $this->id;
@@ -20,6 +22,7 @@ class Prestamo {
         $this->devuelto;
     }
 
+    //Obtiene todos los préstamos de un usuario
     public function listaPrestamos($usuario_id) {
         $sentencia = "SELECT * from prestamos WHERE usuario = ?";
         $stmt = $this->conn->getConn()->prepare($sentencia);
@@ -34,6 +37,7 @@ class Prestamo {
         return $prestamos;
     }
 
+    //Busca préstamos por nombre de amigo o título de juego
     public function buscarPrestamos($busqueda, $id) {
         $sentencia = "SELECT amigos.nombre, juegos.titulo, juegos.img, prestamos.fecha_prestamo, prestamos.devuelto, prestamos.id from prestamos 
         LEFT JOIN amigos ON prestamos.amigo = amigos.id 
@@ -54,6 +58,7 @@ class Prestamo {
     }
 
 
+    //Obtiene los detalles de los préstamos de un usuario específico
     public function buscarPrestamoPorId($id) {
         $sentencia = "SELECT amigos.nombre, juegos.titulo, juegos.img, prestamos.fecha_prestamo, prestamos.devuelto, prestamos.id from prestamos 
         LEFT JOIN amigos ON prestamos.amigo = amigos.id 
@@ -73,6 +78,7 @@ class Prestamo {
         return $prestamos;
     }
 
+    //Marca un préstamo como devuelto o no devuelto
     public function devolverPrestamo($id, $devuelto) {
         $sentencia = "UPDATE prestamos SET devuelto = ? WHERE id = ?";
         $stmt = $this->conn->getConn()->prepare($sentencia);
@@ -81,6 +87,7 @@ class Prestamo {
         $stmt->close();
         return true;
     }
+    //Registra un nuevo préstamo en el sistema
     public function agregarPrestamo($usuario, $amigo, $juego, $fecha_prestamo, $devuelto) {
         $sentencia = "INSERT INTO prestamos (usuario, amigo, juego, fecha_prestamo, devuelto) VALUES (?,?,?,?,?)";
         $stmt = $this->conn->getConn()->prepare($sentencia);
