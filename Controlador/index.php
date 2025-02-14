@@ -459,7 +459,7 @@ function redirigirNuevoUsuario(){
     require_once ("../Vista/footer.php");
 }
 //Agrega un nuevo usuario al sistema
-function agregarUsuario() {
+function agregarUsuarioAdmin() {
     session_start();
 
     $nombre = $_POST['nombre'];
